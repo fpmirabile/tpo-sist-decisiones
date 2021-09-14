@@ -1,2 +1,2 @@
 # tpo-sist-decisiones
-tpo 2do cuatri 2021
+tpo 2do cuatrimestre 2021
