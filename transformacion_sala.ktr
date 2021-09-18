@@ -436,6 +436,25 @@
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>mySQL</name>
+    <server>127.0.0.1</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>commodore64</database>
+    <port>3306</port>
+    <username>shared</username>
+    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
       <from>Microsoft Access input</from>
@@ -454,10 +473,45 @@
     </hop>
     <hop>
       <from>Ordenar filas</from>
-      <to>SQL file output</to>
+      <to>Salida Tabla</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <step>
+    <name>Añadir secuencia</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>ID_SALA</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>Microsoft Access input</name>
     <type>AccessInput</type>
@@ -482,6 +536,11 @@
     <table_name>Rooms</table_name>
     <file>
       <name>C:\Users\Lucas Bollella\Google Drive\UADE\Sistemas de soporte de decision\TPO\tpo-sist-decisiones\course offerings.accdb</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name>C:\Projects\tpo-sist-decisiones\course offerings.accdb</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -565,88 +624,6 @@
     </GUI>
   </step>
   <step>
-    <name>Selecciona/Renombra valores</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>ROOM</name>
-        <rename>nro_sala</rename>
-      </field>
-      <field>
-        <name>SEATS</name>
-        <rename>capacidad</rename>
-      </field>
-      <field>
-        <name>LOCATION</name>
-        <rename>ubicación</rename>
-      </field>
-      <field>
-        <name>Location Name</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>Location Name</name>
-      </remove>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>304</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Añadir secuencia</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <valuename>ID_SALA</valuename>
-    <use_database>N</use_database>
-    <connection/>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>1</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>304</xloc>
-      <yloc>400</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Ordenar filas</name>
     <type>SortRows</type>
     <description/>
@@ -689,8 +666,8 @@
     </GUI>
   </step>
   <step>
-    <name>SQL file output</name>
-    <type>SQLFileOutput</type>
+    <name>Selecciona/Renombra valores</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -699,27 +676,28 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection/>
-    <schema/>
-    <table/>
-    <truncate>N</truncate>
-    <create>N</create>
-    <encoding/>
-    <dateformat/>
-    <addtoresult>N</addtoresult>
-    <startnewline>N</startnewline>
-    <file>
-      <name/>
-      <extention/>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <splitevery>0</splitevery>
-      <create_parent_folder>N</create_parent_folder>
-      <DoNotOpenNewFileInit>N</DoNotOpenNewFileInit>
-    </file>
+    <fields>
+      <field>
+        <name>ROOM</name>
+        <rename>nro_sala</rename>
+      </field>
+      <field>
+        <name>SEATS</name>
+        <rename>capacidad</rename>
+      </field>
+      <field>
+        <name>LOCATION</name>
+        <rename>ubicacion</rename>
+      </field>
+      <field>
+        <name>Location Name</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>Location Name</name>
+      </remove>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -729,7 +707,51 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>304</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Salida Tabla</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>mySQL</connection>
+    <schema>commodore64</schema>
+    <table>dim_salas</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
       <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>

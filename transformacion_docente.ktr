@@ -438,13 +438,13 @@
   </notepads>
   <connection>
     <name>Conexion MySQL</name>
-    <server>localhost</server>
+    <server>127.0.0.1</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>pentaho2</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb09ab7eca93a7d5</password>
+    <username>shared</username>
+    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -543,7 +543,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Users\HP\Desktop\TPO Sist\Instructors.xlsx</name>
+      <name>C:\Projects\tpo-sist-decisiones\Instructors.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -789,8 +789,8 @@
       <schema_name/>
     </partitioning>
     <connection>Conexion MySQL</connection>
-    <schema/>
-    <table/>
+    <schema>commodore64</schema>
+    <table>dim_docente</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -816,7 +816,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>240</xloc>
+      <xloc>224</xloc>
       <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
