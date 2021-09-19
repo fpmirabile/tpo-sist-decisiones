@@ -443,8 +443,8 @@
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>shared</username>
-    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e49b1ff62689cbfa8f</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -543,7 +543,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Projects\tpo-sist-decisiones\Instructors.xlsx</name>
+      <name>C:\Users\Lucas Bollella\Google Drive\UADE\Sistemas de soporte de decision\TPO\tpo-sist-decisiones\Instructors.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
