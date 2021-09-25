@@ -1750,7 +1750,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF7vYOMIT3Mz6o="
 							},
-							"name": "id_temporada",
+							"name": "temporada",
 							"length": 0
 						}
 					]
