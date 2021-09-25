@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Docentes</name>
+    <name>fact_curso_esperado</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -428,18 +427,18 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2021/09/13 18:50:59.646</created_date>
+    <created_date>2021/09/25 09:21:11.440</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2021/09/13 18:50:59.646</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2021/09/25 09:21:11.440</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
-      <note>Extraccion, Transformacion y Carga de dimension  docente</note>
+      <note>Extraccion, Transformacion y Carga de nuestra fac table: fact_curso_esperado</note>
       <xloc>112</xloc>
-      <yloc>80</yloc>
-      <width>401</width>
+      <yloc>32</yloc>
+      <width>532</width>
       <heigth>27</heigth>
       <fontname>Ubuntu</fontname>
       <fontsize>11</fontsize>
@@ -458,7 +457,7 @@
     </notepad>
   </notepads>
   <connection>
-    <name>Conexion MySQL</name>
+    <name>MySQL</name>
     <server>127.0.0.1</server>
     <type>MYSQL</type>
     <access>Native</access>
@@ -472,11 +471,11 @@
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
-        <attribute>1500</attribute>
+        <attribute>500</attribute>
       </attribute>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
-        <attribute>false</attribute>
+        <attribute>true</attribute>
       </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
@@ -508,11 +507,11 @@
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>N</attribute>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>N</attribute>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>USE_POOLING</code>
@@ -522,24 +521,34 @@
   </connection>
   <order>
     <hop>
-      <from>Archivo docentes</from>
+      <from>CSV file input</from>
       <to>Selecciona/Renombra valores</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Ordenar filas</from>
+      <to>Salida Tabla 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Selecciona/Renombra valores</from>
+      <to>id_cursoEsperado</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>id_curso 2</from>
       <to>Ordenar filas</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar filas</from>
-      <to>Salida DIM_DOCENTE</to>
+      <from>id_cursoEsperado</from>
+      <to>id_curso 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Archivo docentes</name>
-    <type>ExcelInput</type>
+    <name>CSV file input</name>
+    <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -548,205 +557,66 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <filename>C/home/shevchuk/Facu/sisop/tp/tp2/tpo-sist-decisiones/CourseCapacity.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
     <header>Y</header>
-    <noempty>Y</noempty>
-    <stoponempty>N</stoponempty>
-    <filefield/>
-    <sheetfield/>
-    <sheetrownumfield/>
-    <rownumfield/>
-    <sheetfield/>
-    <filefield/>
-    <limit>0</limit>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
     <encoding/>
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <accept_filenames>N</accept_filenames>
-    <accept_field/>
-    <accept_stepname/>
-    <file>
-      <name>C:\Users\Lucas Bollella\Google Drive\UADE\Sistemas de soporte de decision\TPO\tpo-sist-decisiones\Instructors.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>/home/shevchuk/Facu/sisop/tp/tp2/tpo-sist-decisiones/Instructors.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
     <fields>
       <field>
-        <name>Instructor_Nu</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Instructor</name>
+        <name>ï»¿Course</name>
         <type>String</type>
-        <length>-1</length>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>17</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
       </field>
       <field>
-        <name>Street</name>
+        <name>Course Title</name>
         <type>String</type>
-        <length>-1</length>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>29</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
       </field>
       <field>
-        <name>City</name>
+        <name>Size</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Season</name>
         <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
         <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>State</name>
-        <type>String</type>
-        <length>-1</length>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>11</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>ZipCode</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Hiring_date</name>
-        <type>Date</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format>dd/MM/yyyy</format>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Family_Nu</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Born_date</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Children_Nu</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Commission</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format>0.00</format>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>CommissionRate</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format>0.00</format>
-        <currency/>
-        <decimal/>
-        <group/>
       </field>
     </fields>
-    <sheets>
-      <sheet>
-        <name>Instructor</name>
-        <startrow>0</startrow>
-        <startcol>0</startcol>
-      </sheet>
-    </sheets>
-    <strict_types>Y</strict_types>
-    <error_ignored>N</error_ignored>
-    <error_line_skipped>Y</error_line_skipped>
-    <bad_line_files_destination_directory/>
-    <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory/>
-    <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory/>
-    <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <spreadsheet_type>POI</spreadsheet_type>
-    <password>Encrypted </password>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -756,8 +626,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>112</xloc>
-      <yloc>208</yloc>
+      <xloc>128</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -781,7 +651,7 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>id_docente</name>
+        <name>id_cursoesperado</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -798,25 +668,25 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>208</yloc>
+      <xloc>752</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Salida DIM_DOCENTE</name>
+    <name>Salida Tabla 2</name>
     <type>TableOutput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Conexion MySQL</connection>
+    <connection>MySQL</connection>
     <schema>commodore64</schema>
-    <table>dim_docente</table>
+    <table>fact_cursoesperado</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -842,8 +712,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>752</xloc>
-      <yloc>208</yloc>
+      <xloc>880</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -860,56 +730,27 @@
     </partitioning>
     <fields>
       <field>
-        <name>Instructor_Nu</name>
-        <rename>id_docente</rename>
-      </field>
-      <field>
-        <name>Instructor</name>
-        <rename>apellido</rename>
-      </field>
-      <field>
-        <name>Street</name>
-        <rename>direccion</rename>
-      </field>
-      <field>
-        <name>City</name>
-        <rename>ciudad</rename>
-      </field>
-      <field>
-        <name>State</name>
-        <rename>estado</rename>
-      </field>
-      <field>
-        <name>ZipCode</name>
+        <name>ï»¿Course</name>
         <rename/>
       </field>
       <field>
-        <name>Hiring_date</name>
-        <rename>fecha_contratacion</rename>
+        <name>Course Title</name>
+        <rename/>
       </field>
       <field>
-        <name>Family_Nu</name>
-        <rename>cant_familiares</rename>
+        <name>Size</name>
+        <rename>capacidad_maxima</rename>
       </field>
       <field>
-        <name>Born_date</name>
-        <rename>fecha_nacimiento</rename>
-      </field>
-      <field>
-        <name>Children_Nu</name>
-        <rename>cant_hijos</rename>
-      </field>
-      <field>
-        <name>Commission</name>
-        <rename>comision</rename>
-      </field>
-      <field>
-        <name>CommissionRate</name>
-        <rename>comision_rate</rename>
+        <name>Season</name>
+        <rename>id_temporada</rename>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
-        <name>ZipCode</name>
+        <name>Course Title</name>
+      </remove>
+      <remove>
+        <name>ï»¿Course</name>
       </remove>
     </fields>
     <attributes/>
@@ -921,8 +762,78 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>208</yloc>
+      <xloc>304</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>id_curso 2</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>id_curso</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>624</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>id_cursoEsperado</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>id_cursoesperado</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
