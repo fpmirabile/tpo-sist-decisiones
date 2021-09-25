@@ -436,12 +436,19 @@
   </info>
   <notepads>
     <notepad>
-      <note>Este flujo es para dim_curso
+      <note>
+El flujo de arriba es para la fact_CursoEsperado, para correrlo y que no te de error hayq ue setear en MySql 
+
+SET GLOBAL FOREIGN_KEY_CHECKS=0;
+Lo cual deshabilita la restriccion de las foreign key, luego de hacer la carga dejarlo en 1 nuevamente
+SET FOREIGN_KEY_CHECKS=1;
+
+El flujo de abajo es para dim_curso
 </note>
-      <xloc>160</xloc>
-      <yloc>288</yloc>
-      <width>157</width>
-      <heigth>41</heigth>
+      <xloc>800</xloc>
+      <yloc>208</yloc>
+      <width>568</width>
+      <heigth>150</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>9</fontsize>
       <fontbold>N</fontbold>
@@ -491,7 +498,7 @@
     <hop>
       <from>CSV file input 2</from>
       <to>dim_curso</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>dim_curso</from>
