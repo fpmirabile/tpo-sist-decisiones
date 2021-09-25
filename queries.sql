@@ -59,13 +59,14 @@ DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE commodore64.fact_curso_real (
+	id_curso_real INT auto_increment,
 	id_curso INT NOT NULL,
 	id_modalidad INT NOT NULL,
 	id_docente INT NOT NULL,
 	id_tiempo INT NOT NULL,
 	id_sala INT NOT NULL,
 	inscriptos INT NOT NULL,
-	CONSTRAINT fact_cursoReal_PK PRIMARY KEY (id_curso),
+	CONSTRAINT fact_cursoReal_PK PRIMARY KEY (id_curso_real),
 	CONSTRAINT fact_cursoReal_FK FOREIGN KEY (id_curso) REFERENCES commodore64.dim_curso(id_curso),
 	CONSTRAINT fact_cursoReal_FK_1 FOREIGN KEY (id_docente) REFERENCES commodore64.dim_docente(id_docente),
 	CONSTRAINT fact_cursoReal_FK_2 FOREIGN KEY (id_sala) REFERENCES commodore64.dim_salas(id_sala),
