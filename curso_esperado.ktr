@@ -445,8 +445,8 @@ SET FOREIGN_KEY_CHECKS=1;
 
 El flujo de abajo es para dim_curso
 </note>
-      <xloc>800</xloc>
-      <yloc>208</yloc>
+      <xloc>832</xloc>
+      <yloc>320</yloc>
       <width>568</width>
       <heigth>150</heigth>
       <fontname>Segoe UI</fontname>
@@ -738,7 +738,7 @@ El flujo de abajo es para dim_curso
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
+      <xloc>704</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -884,8 +884,8 @@ El flujo de abajo es para dim_curso
       </output>
     </remotesteps>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>176</yloc>
+      <xloc>816</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1050,8 +1050,8 @@ El flujo de abajo es para dim_curso
       </output>
     </remotesteps>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>240</yloc>
+      <xloc>576</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
