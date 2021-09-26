@@ -444,7 +444,7 @@
     <database>commodore64</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e49b1ff62689cbfa8f</password>
+    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -543,7 +543,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Users\Lucas Bollella\Google Drive\UADE\Sistemas de soporte de decision\TPO\tpo-sist-decisiones\Instructors.xlsx</name>
+      <name>Z:\tpo-sist-decisiones\Instructors.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -755,7 +755,7 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>Id</name>
+        <name>id_docente</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -835,50 +835,51 @@
     <fields>
       <field>
         <name>Instructor_Nu</name>
-        <rename>Id</rename>
+        <rename>id_docente</rename>
       </field>
       <field>
         <name>Instructor</name>
-        <rename>Apellido</rename>
+        <rename>apellido</rename>
       </field>
       <field>
         <name>Street</name>
-        <rename>Direccion</rename>
+        <rename>direccion</rename>
       </field>
       <field>
         <name>City</name>
-        <rename>Ciudad</rename>
+        <rename>ciudad</rename>
       </field>
       <field>
         <name>State</name>
-        <rename>Estado</rename>
+        <rename>estado</rename>
       </field>
       <field>
         <name>ZipCode</name>
+        <rename/>
       </field>
       <field>
         <name>Hiring_date</name>
-        <rename>FechaContratacion</rename>
+        <rename>fecha_contratacion</rename>
       </field>
       <field>
         <name>Family_Nu</name>
-        <rename>CantFamiliares</rename>
+        <rename>cant_familiares</rename>
       </field>
       <field>
         <name>Born_date</name>
-        <rename>FechaNacimiento</rename>
+        <rename>fecha_nacimiento</rename>
       </field>
       <field>
         <name>Children_Nu</name>
-        <rename>CantidadHijos</rename>
+        <rename>cant_hijos</rename>
       </field>
       <field>
         <name>Commission</name>
-        <rename>Comision</rename>
+        <rename>comision</rename>
       </field>
       <field>
         <name>CommissionRate</name>
-        <rename>ComisionRate</rename>
+        <rename>comision_rate</rename>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
