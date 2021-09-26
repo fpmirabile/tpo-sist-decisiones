@@ -28,15 +28,6 @@ CREATE TABLE `commodore64`.dim_curso (
 `codigo_curso` VARCHAR(255) NOT NULL,
 PRIMARY KEY (`id_curso`));
 
-
-CREATE TABLE `commodore64`.fact_curso_esperado (
-  `id_curso_esperado` INT UNIQUE,
-  `id_curso` INT NOT NULL,
-  `capacidad_maxima` INT NOT NULL,
-  `id_temporada` VARCHAR(255) NOT NULL,
- PRIMARY KEY (`id_curso_esperado`),
- FOREIGN KEY (`id_curso`) REFERENCES dim_curso(`id_curso`)
- );
  
  CREATE TABLE commodore64.dim_modalidad (
 	id_modalidad INT auto_increment NOT NULL,
@@ -44,6 +35,7 @@ CREATE TABLE `commodore64`.fact_curso_esperado (
 	dias varchar(100) NOT NULL,
 	CONSTRAINT dim_modalidad_PK PRIMARY KEY (id_modalidad)
 )
+
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_0900_ai_ci;
@@ -53,25 +45,34 @@ CREATE TABLE commodore64.dim_tiempo (
 	ano INT NOT NULL,
 	temporada VARCHAR(50) NOT NULL,
 	CONSTRAINT dim_tiempo_PK PRIMARY KEY (id_tiempo)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci;
+);
 
+
+CREATE TABLE `commodore64`.fact_curso_esperado (
+  `id_curso_esperado` INT UNIQUE,
+  `id_curso` INT NOT NULL,
+  `capacidad_maxima` INT NOT NULL,
+  `id_tiempo` INT NOT NULL,
+ PRIMARY KEY (`id_curso_esperado`),
+ CONSTRAINT fact_cursoEsperado_FK FOREIGN KEY (id_curso) REFERENCES commodore64.dim_curso(id_curso),
+ CONSTRAINT fact_cursoEsperado_FK_2 FOREIGN KEY (id_tiempo) REFERENCES commodore64.dim_tiempo(id_tiempo)
+ );
+ 
+ 
 CREATE TABLE commodore64.fact_curso_real (
+	id_curso_real INT auto_increment,
 	id_curso INT NOT NULL,
 	id_modalidad INT NOT NULL,
 	id_docente INT NOT NULL,
 	id_tiempo INT NOT NULL,
 	id_sala INT NOT NULL,
 	inscriptos INT NOT NULL,
-	CONSTRAINT fact_cursoReal_PK PRIMARY KEY (id_curso),
+	CONSTRAINT fact_cursoReal_PK PRIMARY KEY (id_curso_real),
 	CONSTRAINT fact_cursoReal_FK FOREIGN KEY (id_curso) REFERENCES commodore64.dim_curso(id_curso),
 	CONSTRAINT fact_cursoReal_FK_1 FOREIGN KEY (id_docente) REFERENCES commodore64.dim_docente(id_docente),
 	CONSTRAINT fact_cursoReal_FK_2 FOREIGN KEY (id_sala) REFERENCES commodore64.dim_salas(id_sala),
 	CONSTRAINT fact_cursoReal_FK_3 FOREIGN KEY (id_modalidad) REFERENCES commodore64.dim_modalidad(id_modalidad),
 	CONSTRAINT fact_cursoReal_FK_4 FOREIGN KEY (id_tiempo) REFERENCES commodore64.dim_tiempo(id_tiempo)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci;
+);
+
+
