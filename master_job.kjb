@@ -19,8 +19,8 @@
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce71da9fa6d4</password>
+    <username>shared</username>
+    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -351,28 +351,6 @@
   <shared_objects_file/>
   <entries>
     <entry>
-      <name>Comienzo</name>
-      <description/>
-      <type>SPECIAL</type>
-      <attributes/>
-      <start>Y</start>
-      <dummy>N</dummy>
-      <repeat>N</repeat>
-      <schedulerType>0</schedulerType>
-      <intervalSeconds>0</intervalSeconds>
-      <intervalMinutes>60</intervalMinutes>
-      <hour>12</hour>
-      <minutes>0</minutes>
-      <weekDay>1</weekDay>
-      <DayOfMonth>1</DayOfMonth>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>32</xloc>
-      <yloc>336</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
       <name>Existe course capacity csv</name>
       <description/>
       <type>FILE_EXISTS</type>
@@ -491,7 +469,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>768</xloc>
+      <xloc>864</xloc>
       <yloc>336</yloc>
       <attributes_kjc/>
     </entry>
@@ -504,7 +482,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>896</xloc>
+      <xloc>976</xloc>
       <yloc>336</yloc>
       <attributes_kjc/>
     </entry>
@@ -543,7 +521,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1040</xloc>
+      <xloc>1120</xloc>
       <yloc>336</yloc>
       <attributes_kjc/>
     </entry>
@@ -582,7 +560,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1168</xloc>
+      <xloc>1248</xloc>
       <yloc>336</yloc>
       <attributes_kjc/>
     </entry>
@@ -593,7 +571,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/fact_curso_esperado.ktr</filename>
+      <filename>${Internal.Entry.Current.Directory}/transformacion_fact_curso_esperado.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -622,7 +600,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>144</xloc>
-      <yloc>528</yloc>
+      <yloc>432</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -632,7 +610,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>${Internal.Entry.Current.Directory}/fact_curso.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -652,13 +630,16 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration/>
+      <run_configuration>Pentaho local</run_configuration>
       <suppress_result_data>N</suppress_result_data>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>304</xloc>
-      <yloc>528</yloc>
+      <yloc>432</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -701,17 +682,81 @@
       <yloc>144</yloc>
       <attributes_kjc/>
     </entry>
+    <entry>
+      <name>Start</name>
+      <description/>
+      <type>SPECIAL</type>
+      <attributes/>
+      <start>Y</start>
+      <dummy>N</dummy>
+      <repeat>N</repeat>
+      <schedulerType>0</schedulerType>
+      <intervalSeconds>0</intervalSeconds>
+      <intervalMinutes>60</intervalMinutes>
+      <hour>12</hour>
+      <minutes>0</minutes>
+      <weekDay>1</weekDay>
+      <DayOfMonth>1</DayOfMonth>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>64</xloc>
+      <yloc>336</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Success</name>
+      <description/>
+      <type>SUCCESS</type>
+      <attributes/>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>416</xloc>
+      <yloc>432</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>dim_curso</name>
+      <description/>
+      <type>TRANS</type>
+      <attributes/>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Entry.Current.Directory}/transformacion_curso.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <run_configuration>Pentaho local</run_configuration>
+      <suppress_result_data>N</suppress_result_data>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>752</xloc>
+      <yloc>336</yloc>
+      <attributes_kjc/>
+    </entry>
   </entries>
   <hops>
-    <hop>
-      <from>Comienzo</from>
-      <to>Conexion a mySql estable</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
     <hop>
       <from>Conexion a mySql estable</from>
       <to>Existe course capacity csv</to>
@@ -733,15 +778,6 @@
     <hop>
       <from>dim_tiempo</from>
       <to>Existe access db</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Existe access db</from>
-      <to>dim_sala</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -836,6 +872,42 @@
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Start</from>
+      <to>Conexion a mySql estable</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>fact_curso_real</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Existe access db</from>
+      <to>dim_curso</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>dim_curso</from>
+      <to>dim_sala</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>

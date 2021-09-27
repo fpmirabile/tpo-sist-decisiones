@@ -440,8 +440,8 @@ hay que llenar las dimensiones de curso,
 docente, sale, tiempo y modalidad</note>
       <xloc>16</xloc>
       <yloc>16</yloc>
-      <width>226</width>
-      <heigth>58</heigth>
+      <width>280</width>
+      <heigth>70</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>9</fontsize>
       <fontbold>N</fontbold>
@@ -459,14 +459,14 @@ docente, sale, tiempo y modalidad</note>
     </notepad>
   </notepads>
   <connection>
-    <name>MySQL</name>
+    <name>mySQL</name>
     <server>127.0.0.1</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
+    <username>shared</username>
+    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -528,11 +528,6 @@ docente, sale, tiempo y modalidad</note>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Fall 2019</from>
-      <to>join_curso</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>input_docente</from>
       <to>join_docente</to>
       <enabled>Y</enabled>
@@ -587,170 +582,22 @@ docente, sale, tiempo y modalidad</note>
       <to>salida_fact_curso</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Obtener filas de resultado anterior</from>
+      <to>join_curso</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Transformation executor</from>
+      <to>Obtener filas de resultado anterior</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Obtener filas de resultado anterior</from>
+      <to>Salida Fichero de Texto</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <step>
-    <name>Fall 2019</name>
-    <type>AccessInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <include>N</include>
-    <include_field/>
-    <tablename>N</tablename>
-    <filename_Field/>
-    <tablename_field/>
-    <rownum>N</rownum>
-    <isaddresult>Y</isaddresult>
-    <filefield>N</filefield>
-    <rownum_field/>
-    <resetrownumber>N</resetrownumber>
-    <table_name>Fall 2019</table_name>
-    <file>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>Z:\tpo-sist-decisiones\course offerings.accdb</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>Fall 2001</name>
-        <attribut>Fall 2001</attribut>
-        <type>String</type>
-        <format/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <currency/>
-        <decimal/>
-        <group/>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Course Title</name>
-        <attribut>Course Title</attribut>
-        <type>String</type>
-        <format/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <currency/>
-        <decimal/>
-        <group/>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Hours</name>
-        <attribut>Hours</attribut>
-        <type>Date</type>
-        <format>hh:mm:ss aa</format>
-        <length>-1</length>
-        <precision>-1</precision>
-        <currency/>
-        <decimal/>
-        <group/>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Days</name>
-        <attribut>Days</attribut>
-        <type>String</type>
-        <format/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <currency/>
-        <decimal/>
-        <group/>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Instructor</name>
-        <attribut>Instructor</attribut>
-        <type>String</type>
-        <format/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <currency/>
-        <decimal/>
-        <group/>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Room</name>
-        <attribut>Room</attribut>
-        <type>String</type>
-        <format/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <currency/>
-        <decimal/>
-        <group/>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Male Enrolled</name>
-        <attribut>Male Enrolled</attribut>
-        <type>Number</type>
-        <format>#</format>
-        <length>-1</length>
-        <precision>-1</precision>
-        <currency/>
-        <decimal/>
-        <group/>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Female Enrolled</name>
-        <attribut>Female Enrolled</attribut>
-        <type>Number</type>
-        <format>#</format>
-        <length>-1</length>
-        <precision>-1</precision>
-        <currency/>
-        <decimal/>
-        <group/>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Select values</name>
     <type>SelectValues</type>
@@ -858,8 +705,8 @@ docente, sale, tiempo y modalidad</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1200</xloc>
-      <yloc>304</yloc>
+      <xloc>1328</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -897,7 +744,7 @@ docente, sale, tiempo y modalidad</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
+      <xloc>1232</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
@@ -936,8 +783,8 @@ docente, sale, tiempo y modalidad</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
-      <yloc>304</yloc>
+      <xloc>992</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -977,8 +824,8 @@ docente, sale, tiempo y modalidad</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>304</yloc>
+      <xloc>1120</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -993,7 +840,7 @@ docente, sale, tiempo y modalidad</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>MySQL</connection>
+    <connection>mySQL</connection>
     <sql>SELECT
   id_curso
 , codigo_curso
@@ -1087,8 +934,8 @@ FROM commodore64.dim_curso
       </output>
     </remotesteps>
     <GUI>
-      <xloc>208</xloc>
-      <yloc>192</yloc>
+      <xloc>224</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1103,7 +950,7 @@ FROM commodore64.dim_curso
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>MySQL</connection>
+    <connection>mySQL</connection>
     <sql>SELECT
   id_docente
 , apellido
@@ -1173,8 +1020,8 @@ order by apellido asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>304</yloc>
+      <xloc>512</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1189,7 +1036,7 @@ order by apellido asc
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>MySQL</connection>
+    <connection>mySQL</connection>
     <sql>SELECT
   id_sala
 , CONCAT(ubicacion, ' ', nro_sala) as room
@@ -1259,8 +1106,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>336</yloc>
+      <xloc>784</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1277,12 +1124,12 @@ order by room asc
     </partitioning>
     <join_type>INNER</join_type>
     <step1>input_curso</step1>
-    <step2>Fall 2019</step2>
+    <step2>Transformation executor</step2>
     <keys_1>
       <key>codigo_curso</key>
     </keys_1>
     <keys_2>
-      <key>Fall 2001</key>
+      <key>Course</key>
     </keys_2>
     <attributes/>
     <cluster_schema/>
@@ -1293,8 +1140,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>240</yloc>
+      <xloc>384</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1327,8 +1174,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
-      <yloc>272</yloc>
+      <xloc>656</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1361,8 +1208,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>752</xloc>
-      <yloc>304</yloc>
+      <xloc>896</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1403,8 +1250,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>240</yloc>
+      <xloc>512</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1445,8 +1292,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>272</yloc>
+      <xloc>784</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1461,7 +1308,7 @@ order by room asc
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>MySQL</connection>
+    <connection>mySQL</connection>
     <schema>commodore64</schema>
     <table>fact_curso_real</table>
     <commit>1000</commit>
@@ -1489,8 +1336,188 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1296</xloc>
-      <yloc>304</yloc>
+      <xloc>1440</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Obtener filas de resultado anterior</name>
+    <type>RowsFromResult</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>      </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Transformation executor</name>
+    <type>TransExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>${Internal.Entry.Current.Directory}/transformacion_modalidad.ktr</filename>
+    <directory_path/>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_step/>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_step>Obtener filas de resultado anterior</result_rows_target_step>
+    <result_rows_field>
+      <name>Course</name>
+      <type>String</type>
+      <length>-1</length>
+      <precision>-1</precision>
+    </result_rows_field>
+    <result_rows_field>
+      <name>Days</name>
+      <type>String</type>
+      <length>-1</length>
+      <precision>-1</precision>
+    </result_rows_field>
+    <result_rows_field>
+      <name>Instructor</name>
+      <type>String</type>
+      <length>-1</length>
+      <precision>-1</precision>
+    </result_rows_field>
+    <result_rows_field>
+      <name>Room</name>
+      <type>String</type>
+      <length>-1</length>
+      <precision>-1</precision>
+    </result_rows_field>
+    <result_rows_field>
+      <name>Male Enrolled</name>
+      <type>String</type>
+      <length>-1</length>
+      <precision>-1</precision>
+    </result_rows_field>
+    <result_rows_field>
+      <name>Female Enrolled</name>
+      <type>String</type>
+      <length>-1</length>
+      <precision>-1</precision>
+    </result_rows_field>
+    <result_rows_field>
+      <name>Season</name>
+      <type>String</type>
+      <length>-1</length>
+      <precision>-1</precision>
+    </result_rows_field>
+    <result_files_target_step/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
+    <executors_output_step/>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>48</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Salida Fichero de Texto</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>;</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding/>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/sd</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>txt</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery/>
+    </file>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -439,8 +439,8 @@
       <note>Extraccion, Transformacion y Carga de nuestra fac table: fact_curso_esperado</note>
       <xloc>0</xloc>
       <yloc>16</yloc>
-      <width>532</width>
-      <heigth>27</heigth>
+      <width>639</width>
+      <heigth>31</heigth>
       <fontname>Ubuntu</fontname>
       <fontsize>11</fontsize>
       <fontbold>N</fontbold>
@@ -458,14 +458,14 @@
     </notepad>
   </notepads>
   <connection>
-    <name>MySQL</name>
+    <name>mySQL</name>
     <server>127.0.0.1</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce71da9fa6d4</password>
+    <username>shared</username>
+    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -508,11 +508,11 @@
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
+        <attribute>N</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>Y</attribute>
+        <attribute>N</attribute>
       </attribute>
       <attribute>
         <code>USE_POOLING</code>
@@ -578,6 +578,94 @@
     </hop>
   </order>
   <step>
+    <name>Búsqueda en flujo de curso</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>dim_curso</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>codigo_curso</name>
+        <field>codigo_curso</field>
+      </key>
+      <value>
+        <name>id_curso</name>
+        <rename>id_curso</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1008</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Búsqueda en flujo de tiempo</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>dim_tiempo</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>ano</name>
+        <field>ano</field>
+      </key>
+      <key>
+        <name>temporada</name>
+        <field>temporada</field>
+      </key>
+      <value>
+        <name>id_tiempo</name>
+        <rename>id_tiempo</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>800</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>CSV courseCapacity</name>
     <type>CsvInput</type>
     <description/>
@@ -588,7 +676,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>/home/shevchuk/Facu/sisop/tp/tp2/tpo-sist-decisiones/CourseCapacity.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/CourseCapacity.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -699,51 +787,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>432</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>salida fact_curso_esperado</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>MySQL</connection>
-    <schema>commodore64</schema>
-    <table>fact_curso_esperado</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>736</xloc>
+      <xloc>1008</xloc>
       <yloc>432</yloc>
       <draw>Y</draw>
     </GUI>
@@ -774,11 +818,9 @@
       </field>
       <field>
         <name>ano</name>
-        <rename/>
       </field>
       <field>
         <name>temporada</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -814,8 +856,8 @@
     </GUI>
   </step>
   <step>
-    <name>id_curso_esperado</name>
-    <type>Sequence</type>
+    <name>Selecciona/Renombra valores curso esperado</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -824,16 +866,21 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <valuename>id_curso_esperado</valuename>
-    <use_database>N</use_database>
-    <connection>MySQL</connection>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>1</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>ano</name>
+      </remove>
+      <remove>
+        <name>codigo_curso</name>
+      </remove>
+      <remove>
+        <name>temporada</name>
+      </remove>
+      <remove>
+        <name>titulo</name>
+      </remove>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -843,8 +890,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1200</xloc>
-      <yloc>432</yloc>
+      <xloc>1232</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -917,7 +964,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>MySQL</connection>
+    <connection>mySQL</connection>
     <sql>SELECT
   id_curso
 , titulo
@@ -1016,94 +1063,6 @@ FROM commodore64.dim_curso
     </GUI>
   </step>
   <step>
-    <name>Búsqueda en flujo de curso</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <from>dim_curso</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>codigo_curso</name>
-        <field>codigo_curso</field>
-      </key>
-      <value>
-        <name>id_curso</name>
-        <rename>id_curso</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1008</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Búsqueda en flujo de tiempo</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <from>dim_tiempo</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>ano</name>
-        <field>ano</field>
-      </key>
-      <key>
-        <name>temporada</name>
-        <field>temporada</field>
-      </key>
-      <value>
-        <name>id_tiempo</name>
-        <rename>id_tiempo</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>800</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>dim_tiempo</name>
     <type>TableInput</type>
     <description/>
@@ -1114,7 +1073,7 @@ FROM commodore64.dim_curso
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>MySQL</connection>
+    <connection>mySQL</connection>
     <sql>SELECT
   id_tiempo
 , ano
@@ -1213,6 +1172,41 @@ FROM commodore64.dim_tiempo
     </GUI>
   </step>
   <step>
+    <name>id_curso_esperado</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>id_curso_esperado</valuename>
+    <use_database>N</use_database>
+    <connection>mySQL</connection>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1232</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>partir temporada</name>
     <type>FieldSplitter</type>
     <description/>
@@ -1267,36 +1261,40 @@ FROM commodore64.dim_tiempo
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
+      <xloc>368</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Selecciona/Renombra valores curso esperado</name>
-    <type>SelectValues</type>
+    <name>salida fact_curso_esperado</name>
+    <type>TableOutput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <connection>mySQL</connection>
+    <schema>commodore64</schema>
+    <table>fact_curso_esperado</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
     <fields>
-      <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>ano</name>
-      </remove>
-      <remove>
-        <name>codigo_curso</name>
-      </remove>
-      <remove>
-        <name>temporada</name>
-      </remove>
-      <remove>
-        <name>titulo</name>
-      </remove>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1307,8 +1305,8 @@ FROM commodore64.dim_tiempo
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1200</xloc>
-      <yloc>288</yloc>
+      <xloc>800</xloc>
+      <yloc>432</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

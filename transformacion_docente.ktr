@@ -439,8 +439,8 @@
       <note>Extraccion, Transformacion y Carga de dimension  docente</note>
       <xloc>112</xloc>
       <yloc>80</yloc>
-      <width>401</width>
-      <heigth>27</heigth>
+      <width>483</width>
+      <heigth>31</heigth>
       <fontname>Ubuntu</fontname>
       <fontsize>11</fontsize>
       <fontbold>N</fontbold>
@@ -458,25 +458,25 @@
     </notepad>
   </notepads>
   <connection>
-    <name>Conexion MySQL</name>
+    <name>mySQL</name>
     <server>127.0.0.1</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
+    <username>shared</username>
+    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
-        <attribute>1500</attribute>
+        <attribute>500</attribute>
       </attribute>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
-        <attribute>false</attribute>
+        <attribute>true</attribute>
       </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
@@ -564,6 +564,11 @@
     <accept_field/>
     <accept_stepname/>
     <file>
+      <name>C:\Projects\tpo-sist-decisiones\Instructors.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
       <name>Z:\tpo-sist-decisiones\Instructors.xlsx</name>
       <filemask/>
       <exclude_filemask/>
@@ -814,7 +819,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Conexion MySQL</connection>
+    <connection>mySQL</connection>
     <schema>commodore64</schema>
     <table>dim_docente</table>
     <commit>1000</commit>
@@ -881,7 +886,6 @@
       </field>
       <field>
         <name>ZipCode</name>
-        <rename/>
       </field>
       <field>
         <name>Hiring_date</name>

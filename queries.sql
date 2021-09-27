@@ -1,4 +1,4 @@
-create database commodore64;
+create database if not exists commodore64;
 
 CREATE TABLE `commodore64`.`dim_docente` (
   `id_docente` INT NOT NULL,
