@@ -443,8 +443,8 @@
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce71da9fa6d4</password>
+    <username>shared</username>
+    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -585,6 +585,11 @@
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
       <name>/home/shevchuk/Facu/sisop/tp/tp2/tpo-sist-decisiones/course offerings.accdb</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name>C:\Projects\tpo-sist-decisiones\course offerings.accdb</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

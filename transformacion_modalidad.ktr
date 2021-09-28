@@ -2498,8 +2498,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1184</xloc>
-      <yloc>400</yloc>
+      <xloc>1216</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2528,10 +2528,10 @@
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>${Internal.Entry.Current.Directory}/d2</name>
+      <name>${Internal.Entry.Current.Directory}/salida_temp</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>txt</extention>
+      <extention>csv</extention>
       <append>N</append>
       <split>N</split>
       <haspartno>N</haspartno>
@@ -2639,8 +2639,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1024</xloc>
-      <yloc>400</yloc>
+      <xloc>1056</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
