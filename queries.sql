@@ -19,6 +19,7 @@ CREATE TABLE `commodore64`.`dim_salas` (
   `nro_sala` VARCHAR(45) NULL,
   `capacidad` INT NULL,
   `ubicacion` VARCHAR(255) NULL,
+  `tipo` VARCHAR(255) NULL,
   PRIMARY KEY (`id_sala`));
 
 

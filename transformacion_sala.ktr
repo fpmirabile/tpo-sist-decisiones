@@ -443,8 +443,8 @@
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>shared</username>
-    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce108cc2fd8a</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -501,11 +501,6 @@
   </connection>
   <order>
     <hop>
-      <from>Microsoft Access input</from>
-      <to>Selecciona/Renombra valores</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Selecciona/Renombra valores</from>
       <to>Añadir secuencia</to>
       <enabled>Y</enabled>
@@ -518,6 +513,21 @@
     <hop>
       <from>Ordenar filas</from>
       <to>Salida Tabla</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Entrada Excel</from>
+      <to>Unión por clave</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Microsoft Access input</from>
+      <to>Unión por clave</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Unión por clave</from>
+      <to>Selecciona/Renombra valores</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -557,6 +567,117 @@
     </GUI>
   </step>
   <step>
+    <name>Entrada Excel</name>
+    <type>ExcelInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
+    <limit>0</limit>
+    <encoding/>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field/>
+    <accept_stepname/>
+    <file>
+      <name>C:\Users\Fernando\OneDrive\Documentos\tpo-sist-decisiones\Room Types.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>BUILDING</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>ROOM</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format>#</format>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>TYPE</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+    </fields>
+    <sheets>
+      <sheet>
+        <name>Room Types</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <spreadsheet_type>POI</spreadsheet_type>
+    <password>Encrypted </password>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>544</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Microsoft Access input</name>
     <type>AccessInput</type>
     <description/>
@@ -579,17 +700,7 @@
     <resetrownumber>N</resetrownumber>
     <table_name>Rooms</table_name>
     <file>
-      <name>Z:\tpo-sist-decisiones\course offerings.accdb</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>/home/shevchuk/Facu/sisop/tp/tp2/tpo-sist-decisiones/course offerings.accdb</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>C:\Projects\tpo-sist-decisiones\course offerings.accdb</name>
+      <name>C:\Users\Fernando\OneDrive\Documentos\tpo-sist-decisiones\course offerings.accdb</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -667,8 +778,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>304</xloc>
-      <yloc>128</yloc>
+      <xloc>336</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -762,7 +873,7 @@
     <name>Selecciona/Renombra valores</name>
     <type>SelectValues</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -775,6 +886,10 @@
         <rename>nro_sala</rename>
       </field>
       <field>
+        <name>TYPE</name>
+        <rename>tipo</rename>
+      </field>
+      <field>
         <name>SEATS</name>
         <rename>capacidad</rename>
       </field>
@@ -782,13 +897,7 @@
         <name>LOCATION</name>
         <rename>ubicacion</rename>
       </field>
-      <field>
-        <name>Location Name</name>
-      </field>
       <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>Location Name</name>
-      </remove>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -801,6 +910,40 @@
     <GUI>
       <xloc>304</xloc>
       <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Unión por clave</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Entrada Excel</step1>
+    <step2>Microsoft Access input</step2>
+    <keys_1>
+      <key>ROOM</key>
+    </keys_1>
+    <keys_2>
+      <key>ROOM</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
