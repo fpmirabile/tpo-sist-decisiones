@@ -465,7 +465,7 @@
     <database>commodore64</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e49b1ff62689cbfa8f</password>
+    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -564,22 +564,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Projects\tpo-sist-decisiones\Instructors.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>Z:\tpo-sist-decisiones\Instructors.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>/home/shevchuk/Facu/sisop/tp/tp2/tpo-sist-decisiones/Instructors.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>C:\Users\Lucas Bollella\Desktop\tpo-sist-decisiones\Fuentes\Instructors.xlsx</name>
+      <name>${Internal.Entry.Current.Directory}/Fuentes/Instructors.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

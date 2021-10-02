@@ -467,7 +467,7 @@ docente, sale y tiempo.</note>
     <database>commodore64</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e49b1ff62689cbfa8f</password>
+    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -524,11 +524,6 @@ docente, sale y tiempo.</note>
   </connection>
   <order>
     <hop>
-      <from>input_curso</from>
-      <to>join_curso</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>input_docente</from>
       <to>join_docente</to>
       <enabled>Y</enabled>
@@ -559,33 +554,8 @@ docente, sale y tiempo.</note>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values</from>
-      <to>salida_fact_curso</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>CSV file input (TEMPORAL)</from>
-      <to>Partir campos</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Partir campos</from>
-      <to>join_curso</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>join_sala</from>
-      <to>join_docente 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>join_docente 2</from>
       <to>calcular_inscriptos</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>input dim_tiempo</from>
-      <to>join_docente 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -596,6 +566,66 @@ docente, sale y tiempo.</note>
     <hop>
       <from>Valor JavaScript modificado</from>
       <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>input_curso</from>
+      <to>Trim_input_curso</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Trim_input_curso</from>
+      <to>Sort rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
+      <to>join_curso</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>CSV file input (TEMPORAL)</from>
+      <to>Partir campos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Partir campos</from>
+      <to>trim_csv</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>trim_csv</from>
+      <to>Sort rows 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 2</from>
+      <to>join_curso</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>join_sala</from>
+      <to>ordenar_por_tiempo</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ordenar_por_tiempo</from>
+      <to>join_docente 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>input dim_tiempo</from>
+      <to>ordenar_por_tiempo_2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ordenar_por_tiempo_2</from>
+      <to>join_docente 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Insert / update</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -712,8 +742,99 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
+      <xloc>32</xloc>
       <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insert / update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>mySQL</connection>
+    <commit>100</commit>
+    <update_bypassed>Y</update_bypassed>
+    <lookup>
+      <schema>commodore64</schema>
+      <table>fact_curso_real</table>
+      <key>
+        <name>id_curso</name>
+        <field>id_curso</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>id_docente</name>
+        <field>id_docente</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>id_sala</name>
+        <field>id_sala</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>id_tiempo</name>
+        <field>id_tiempo</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>id_curso</name>
+        <rename>id_curso</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>dias</name>
+        <rename>dias</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>id_docente</name>
+        <rename>id_docente</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>id_sala</name>
+        <rename>id_sala</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>id_tiempo</name>
+        <rename>id_tiempo</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>inscriptos</name>
+        <rename>inscriptos</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>modalidad</name>
+        <rename>modalidad</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1440</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -772,8 +893,8 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>224</yloc>
+      <xloc>160</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -796,16 +917,11 @@ docente, sale y tiempo.</note>
         <name>codigo_curso</name>
       </field>
       <field>
-        <name>Fall 2001</name>
-      </field>
-      <field>
-        <name>Course Title</name>
-      </field>
-      <field>
-        <name>Hours</name>
+        <name>Course</name>
       </field>
       <field>
         <name>Days</name>
+        <rename>dias</rename>
       </field>
       <field>
         <name>Instructor</name>
@@ -818,6 +934,12 @@ docente, sale y tiempo.</note>
       </field>
       <field>
         <name>Female Enrolled</name>
+      </field>
+      <field>
+        <name>temporada</name>
+      </field>
+      <field>
+        <name>ano</name>
       </field>
       <field>
         <name>id_docente</name>
@@ -835,26 +957,23 @@ docente, sale y tiempo.</note>
         <name>id_tiempo</name>
       </field>
       <field>
+        <name>ano_1</name>
+      </field>
+      <field>
+        <name>temporada_1</name>
+      </field>
+      <field>
         <name>inscriptos</name>
       </field>
       <field>
-        <name>id_modalidad</name>
+        <name>modalidad</name>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
         <name>codigo_curso</name>
       </remove>
       <remove>
-        <name>Fall 2001</name>
-      </remove>
-      <remove>
-        <name>Course Title</name>
-      </remove>
-      <remove>
-        <name>Hours</name>
-      </remove>
-      <remove>
-        <name>Days</name>
+        <name>Course</name>
       </remove>
       <remove>
         <name>Instructor</name>
@@ -869,11 +988,142 @@ docente, sale y tiempo.</note>
         <name>Female Enrolled</name>
       </remove>
       <remove>
+        <name>temporada</name>
+      </remove>
+      <remove>
+        <name>ano</name>
+      </remove>
+      <remove>
         <name>apellido</name>
       </remove>
       <remove>
         <name>room_1</name>
       </remove>
+      <remove>
+        <name>ano_1</name>
+      </remove>
+      <remove>
+        <name>temporada_1</name>
+      </remove>
+      <meta>
+        <name>id_curso</name>
+        <rename>id_curso</rename>
+        <type>Integer</type>
+        <length>9</length>
+        <precision>0</precision>
+        <conversion_mask>#</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>dias</name>
+        <rename>dias</rename>
+        <type>String</type>
+        <length>9</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>id_docente</name>
+        <rename>id_docente</rename>
+        <type>Integer</type>
+        <length>9</length>
+        <precision>0</precision>
+        <conversion_mask>#</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>id_sala</name>
+        <rename>id_sala</rename>
+        <type>Integer</type>
+        <length>9</length>
+        <precision>0</precision>
+        <conversion_mask>#</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>id_tiempo</name>
+        <rename>id_tiempo</rename>
+        <type>Integer</type>
+        <length>9</length>
+        <precision>0</precision>
+        <conversion_mask>#</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>inscriptos</name>
+        <rename>inscriptos</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>0</precision>
+        <conversion_mask>#</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>modalidad</name>
+        <rename>modalidad</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -884,8 +1134,132 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1328</xloc>
+      <xloc>1344</xloc>
       <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>codigo_curso</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>272</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>Course</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>400</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Trim_input_curso</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>codigo_curso</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper/>
+        <padding_type/>
+        <pad_char/>
+        <pad_len/>
+        <init_cap/>
+        <mask_xml/>
+        <digits/>
+        <remove_special_characters/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -935,8 +1309,8 @@ if (Days == "R") {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1200</xloc>
-      <yloc>176</yloc>
+      <xloc>1232</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1086,8 +1460,8 @@ order by ano, temporada asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>944</xloc>
-      <yloc>336</yloc>
+      <xloc>1024</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1196,8 +1570,8 @@ FROM commodore64.dim_curso
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>128</yloc>
+      <xloc>32</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1282,8 +1656,8 @@ order by apellido asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
-      <yloc>272</yloc>
+      <xloc>656</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1368,8 +1742,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
-      <yloc>320</yloc>
+      <xloc>864</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1385,8 +1759,8 @@ order by room asc
       <schema_name/>
     </partitioning>
     <join_type>INNER</join_type>
-    <step1>input_curso</step1>
-    <step2>Partir campos</step2>
+    <step1>Sort rows</step1>
+    <step2>Sort rows 2</step2>
     <keys_1>
       <key>codigo_curso</key>
     </keys_1>
@@ -1402,7 +1776,7 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
+      <xloc>400</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1453,8 +1827,8 @@ order by room asc
       <schema_name/>
     </partitioning>
     <join_type>INNER</join_type>
-    <step1>join_sala</step1>
-    <step2>input dim_tiempo</step2>
+    <step1>ordenar_por_tiempo</step1>
+    <step2>ordenar_por_tiempo_2</step2>
     <keys_1>
       <key>ano</key>
       <key>temporada</key>
@@ -1472,7 +1846,7 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1008</xloc>
+      <xloc>1024</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1506,7 +1880,7 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
+      <xloc>864</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1590,14 +1964,14 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
+      <xloc>752</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>salida_fact_curso</name>
-    <type>TableOutput</type>
+    <name>ordenar_por_tiempo</name>
+    <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1606,24 +1980,30 @@ order by room asc
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>mySQL</connection>
-    <schema>commodore64</schema>
-    <table>fact_curso_real</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
     <fields>
+      <field>
+        <name>ano</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>temporada</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1634,8 +2014,98 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1440</xloc>
+      <xloc>944</xloc>
       <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>ordenar_por_tiempo_2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>ano</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>temporada</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1024</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>trim_csv</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>Course</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper/>
+        <padding_type/>
+        <pad_char/>
+        <pad_len/>
+        <init_cap/>
+        <mask_xml/>
+        <digits/>
+        <remove_special_characters/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>272</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
