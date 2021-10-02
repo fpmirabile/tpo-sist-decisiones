@@ -19,8 +19,8 @@
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>shared</username>
-    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e49b1ff62689cbfa8f</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -355,7 +355,7 @@
       <description/>
       <type>FILE_EXISTS</type>
       <attributes/>
-      <filename>file:///C:/Projects/tpo-sist-decisiones/CourseCapacity.csv</filename>
+      <filename>${Internal.Entry.Current.Directory}/Fuentes/CourseCapacity.csv</filename>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
@@ -398,8 +398,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>528</xloc>
-      <yloc>336</yloc>
+      <xloc>512</xloc>
+      <yloc>320</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -426,7 +426,7 @@
       <description/>
       <type>FILE_EXISTS</type>
       <attributes/>
-      <filename>file:///C:/Projects/tpo-sist-decisiones/course%20offerings.accdb</filename>
+      <filename>${Internal.Entry.Current.Directory}/Fuentes/course%20offerings.accdb</filename>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
@@ -478,7 +478,7 @@
       <description/>
       <type>FILE_EXISTS</type>
       <attributes/>
-      <filename>file:///C:/Projects/tpo-sist-decisiones/Instructors.xlsx</filename>
+      <filename>${Internal.Entry.Current.Directory}/Fuentes/Instructors.xlsx</filename>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
@@ -610,7 +610,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/fact_curso.ktr</filename>
+      <filename>${Internal.Entry.Current.Directory}/transformacion_fact_curso_real.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>

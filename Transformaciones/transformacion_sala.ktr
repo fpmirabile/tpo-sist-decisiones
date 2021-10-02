@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>dim_tiempo</name>
+    <name>Sala</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -428,35 +428,13 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2021/09/25 11:22:39.627</created_date>
+    <created_date>2021/09/13 20:19:57.060</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2021/09/25 11:22:39.627</modified_date>
+    <modified_date>2021/09/13 20:19:57.060</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>Extraccion, Transformacion y Carga de dimension tiempo
-</note>
-      <xloc>144</xloc>
-      <yloc>144</yloc>
-      <width>467</width>
-      <heigth>53</heigth>
-      <fontname>Ubuntu</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>mySQL</name>
@@ -465,8 +443,8 @@
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>shared</username>
-    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e49b1ff62689cbfa8f</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -523,39 +501,39 @@
   </connection>
   <order>
     <hop>
-      <from>id_tiempo</from>
-      <to>Partir campos</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Partir campos</from>
-      <to>Selecciona/Renombra valores</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Selecciona/Renombra valores</from>
+      <to>Añadir secuencia</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Añadir secuencia</from>
+      <to>Ordenar filas</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Ordenar filas</from>
       <to>Salida Tabla</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Course Capacity CSV</from>
-      <to>Ordenar filas por season</to>
+      <from>Entrada Excel</from>
+      <to>Unión por clave</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar filas por season</from>
-      <to>Filas Unicas</to>
+      <from>Microsoft Access input</from>
+      <to>Unión por clave</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filas Unicas</from>
-      <to>id_tiempo</to>
+      <from>Unión por clave</from>
+      <to>Selecciona/Renombra valores</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Course Capacity CSV</name>
-    <type>CsvInput</type>
+    <name>Añadir secuencia</name>
+    <type>Sequence</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -564,66 +542,127 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/CourseCapacity.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
+    <valuename>ID_SALA</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Entrada Excel</name>
+    <type>ExcelInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
+    <limit>0</limit>
     <encoding/>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field/>
+    <accept_stepname/>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/Fuentes/Room Types.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
     <fields>
       <field>
-        <name>ï»¿Course</name>
+        <name>BUILDING</name>
         <type>String</type>
-        <format/>
-        <currency>€</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>17</length>
+        <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
-        <name>Course Title</name>
+        <name>ROOM</name>
         <type>String</type>
-        <format/>
-        <currency>€</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>21</length>
+        <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Size</name>
-        <type>Integer</type>
+        <repeat>N</repeat>
         <format>#</format>
-        <currency>€</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
-        <name>Season</name>
+        <name>TYPE</name>
         <type>String</type>
-        <format/>
-        <currency>€</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>9</length>
+        <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
     </fields>
+    <sheets>
+      <sheet>
+        <name>Room Types</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <spreadsheet_type>POI</spreadsheet_type>
+    <password>Encrypted </password>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -633,14 +672,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>288</yloc>
+      <xloc>544</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Filas Unicas</name>
-    <type>Unique</type>
+    <name>Microsoft Access input</name>
+    <type>AccessInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -649,16 +688,87 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <count_rows>N</count_rows>
-    <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
+    <include>N</include>
+    <include_field/>
+    <tablename>N</tablename>
+    <filename_Field/>
+    <tablename_field/>
+    <rownum>N</rownum>
+    <isaddresult>Y</isaddresult>
+    <filefield>N</filefield>
+    <rownum_field/>
+    <resetrownumber>N</resetrownumber>
+    <table_name>Rooms</table_name>
+    <file>
+      <name>${Internal.Entry.Current.Directory}/Fuentes/course offerings.accdb</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
     <fields>
       <field>
-        <name>Season</name>
-        <case_insensitive>N</case_insensitive>
+        <name>ROOM</name>
+        <attribut>ROOM</attribut>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>SEATS</name>
+        <attribut>SEATS</attribut>
+        <type>Number</type>
+        <format>#</format>
+        <length>-1</length>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>LOCATION</name>
+        <attribut>LOCATION</attribut>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>Location Name</name>
+        <attribut>Location Name</attribut>
+        <type>String</type>
+        <format/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
       </field>
     </fields>
+    <limit>0</limit>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -668,13 +778,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>368</xloc>
-      <yloc>288</yloc>
+      <xloc>336</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar filas por season</name>
+    <name>Ordenar filas</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -693,8 +803,8 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>Season</name>
-        <ascending>Y</ascending>
+        <name>ID_SALA</name>
+        <ascending>N</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
         <collator_strength>0</collator_strength>
@@ -710,68 +820,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>240</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Partir campos</name>
-    <type>FieldSplitter</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <splitfield>Season</splitfield>
-    <delimiter> </delimiter>
-    <enclosure/>
-    <fields>
-      <field>
-        <name>temporada</name>
-        <id/>
-        <idrem>N</idrem>
-        <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
-        <currency/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
-        <trimtype>none</trimtype>
-      </field>
-      <field>
-        <name>ano</name>
-        <id/>
-        <idrem>N</idrem>
-        <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
-        <currency/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
-        <trimtype>none</trimtype>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>288</yloc>
+      <xloc>448</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -788,7 +838,7 @@
     </partitioning>
     <connection>mySQL</connection>
     <schema>commodore64</schema>
-    <table>dim_tiempo</table>
+    <table>dim_salas</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -814,8 +864,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>288</yloc>
+      <xloc>560</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -823,7 +873,7 @@
     <name>Selecciona/Renombra valores</name>
     <type>SelectValues</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -832,84 +882,22 @@
     </partitioning>
     <fields>
       <field>
-        <name>id_tiempo</name>
+        <name>ROOM</name>
+        <rename>nro_sala</rename>
       </field>
       <field>
-        <name>temporada</name>
+        <name>TYPE</name>
+        <rename>tipo</rename>
       </field>
       <field>
-        <name>ano</name>
+        <name>SEATS</name>
+        <rename>capacidad</rename>
       </field>
       <field>
-        <name>ï»¿Course</name>
-      </field>
-      <field>
-        <name>Course Title</name>
-      </field>
-      <field>
-        <name>Size</name>
+        <name>LOCATION</name>
+        <rename>ubicacion</rename>
       </field>
       <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>ï»¿Course</name>
-      </remove>
-      <remove>
-        <name>Course Title</name>
-      </remove>
-      <remove>
-        <name>Size</name>
-      </remove>
-      <meta>
-        <name>id_tiempo</name>
-        <rename>id_tiempo</rename>
-        <type>Integer</type>
-        <length>1</length>
-        <precision>0</precision>
-        <conversion_mask>#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>ano</name>
-        <rename>ano</rename>
-        <type>Integer</type>
-        <length>1</length>
-        <precision>0</precision>
-        <conversion_mask>#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>temporada</name>
-        <rename>temporada</rename>
-        <type>String</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -920,14 +908,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
-      <yloc>288</yloc>
+      <xloc>304</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>id_tiempo</name>
-    <type>Sequence</type>
+    <name>Unión por clave</name>
+    <type>MergeJoin</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -936,16 +924,15 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <valuename>id_tiempo</valuename>
-    <use_database>N</use_database>
-    <connection>mySQL</connection>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>1</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
+    <join_type>INNER</join_type>
+    <step1>Entrada Excel</step1>
+    <step2>Microsoft Access input</step2>
+    <keys_1>
+      <key>ROOM</key>
+    </keys_1>
+    <keys_2>
+      <key>ROOM</key>
+    </keys_2>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -955,8 +942,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>288</yloc>
+      <xloc>416</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
