@@ -461,12 +461,12 @@ docente, sale y tiempo.</note>
   </notepads>
   <connection>
     <name>mySQL</name>
-    <server>127.0.0.1</server>
+    <server>192.168.0.14</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>root</username>
+    <username>ivo</username>
     <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
     <servername/>
     <data_tablespace/>
@@ -732,6 +732,17 @@ docente, sale y tiempo.</note>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
+      <field>
+        <name>Hours</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -823,6 +834,11 @@ docente, sale y tiempo.</note>
         <rename>modalidad</rename>
         <update>Y</update>
       </value>
+      <value>
+        <name>duracion</name>
+        <rename>duracion</rename>
+        <update>Y</update>
+      </value>
     </lookup>
     <attributes/>
     <cluster_schema/>
@@ -912,12 +928,15 @@ docente, sale y tiempo.</note>
     <fields>
       <field>
         <name>id_curso</name>
+        <rename/>
       </field>
       <field>
         <name>codigo_curso</name>
+        <rename/>
       </field>
       <field>
         <name>Course</name>
+        <rename/>
       </field>
       <field>
         <name>Days</name>
@@ -925,48 +944,67 @@ docente, sale y tiempo.</note>
       </field>
       <field>
         <name>Instructor</name>
+        <rename/>
       </field>
       <field>
         <name>Room</name>
+        <rename/>
       </field>
       <field>
         <name>Male Enrolled</name>
+        <rename/>
       </field>
       <field>
         <name>Female Enrolled</name>
+        <rename/>
       </field>
       <field>
         <name>temporada</name>
+        <rename/>
       </field>
       <field>
         <name>ano</name>
+        <rename/>
       </field>
       <field>
         <name>id_docente</name>
+        <rename/>
       </field>
       <field>
         <name>apellido</name>
+        <rename/>
       </field>
       <field>
         <name>id_sala</name>
+        <rename/>
       </field>
       <field>
         <name>room_1</name>
+        <rename/>
       </field>
       <field>
         <name>id_tiempo</name>
+        <rename/>
       </field>
       <field>
         <name>ano_1</name>
+        <rename/>
       </field>
       <field>
         <name>temporada_1</name>
+        <rename/>
       </field>
       <field>
         <name>inscriptos</name>
+        <rename/>
       </field>
       <field>
         <name>modalidad</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Hours</name>
+        <rename>duracion</rename>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>

@@ -69,6 +69,7 @@ CREATE TABLE commodore64.fact_curso_real (
 	modalidad varchar(100) NOT NULL,
 	dias varchar(100) NOT NULL,
 	inscriptos INT NOT NULL,
+    duracion varchar(100) NOT NULL,
 	CONSTRAINT fact_cursoReal_PK PRIMARY KEY (id_curso_real),
 	CONSTRAINT fact_cursoReal_FK FOREIGN KEY (id_curso) REFERENCES commodore64.dim_curso(id_curso),
 	CONSTRAINT fact_cursoReal_FK_1 FOREIGN KEY (id_docente) REFERENCES commodore64.dim_docente(id_docente),
