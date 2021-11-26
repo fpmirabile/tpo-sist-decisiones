@@ -439,8 +439,8 @@
       <note>Extrae, transforma y carga los datos de CurseCapacity en  la dimension de curso</note>
       <xloc>181</xloc>
       <yloc>44</yloc>
-      <width>542</width>
-      <heigth>27</heigth>
+      <width>656</width>
+      <heigth>31</heigth>
       <fontname>Ubuntu</fontname>
       <fontsize>11</fontsize>
       <fontbold>N</fontbold>
@@ -458,14 +458,14 @@
     </notepad>
   </notepads>
   <connection>
-    <name>MySQL</name>
-    <server>192.168.0.14</server>
+    <name>mySQL</name>
+    <server>127.0.0.1</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>ivo</username>
-    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
+    <username>shared</username>
+    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -508,11 +508,11 @@
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
+        <attribute>N</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>Y</attribute>
+        <attribute>N</attribute>
       </attribute>
       <attribute>
         <code>USE_POOLING</code>
@@ -537,18 +537,13 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filas Unicas</from>
-      <to>dim_curso</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>CSV file input 2</from>
       <to>Ordenar course</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Ordenar course</from>
-      <to>Filas Unicas</to>
+      <to>dim_curso</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -638,41 +633,6 @@
     </GUI>
   </step>
   <step>
-    <name>Filas Unicas</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
-    <fields>
-      <field>
-        <name>ï»¿Course</name>
-        <case_insensitive>Y</case_insensitive>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>304</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Ordenar course</name>
     <type>SortRows</type>
     <description/>
@@ -751,7 +711,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>672</xloc>
+      <xloc>528</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -767,7 +727,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>MySQL</connection>
+    <connection>mySQL</connection>
     <schema>commodore64</schema>
     <table>dim_curso</table>
     <commit>1000</commit>
@@ -795,7 +755,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>800</xloc>
+      <xloc>640</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -822,16 +782,15 @@
       </field>
       <field>
         <name>Size</name>
+        <rename/>
       </field>
       <field>
         <name>Season</name>
+        <rename>temporada</rename>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
         <name>Size</name>
-      </remove>
-      <remove>
-        <name>Season</name>
       </remove>
     </fields>
     <attributes/>
@@ -843,7 +802,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>432</xloc>
+      <xloc>320</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -861,7 +820,7 @@
     </partitioning>
     <valuename>id_curso</valuename>
     <use_database>N</use_database>
-    <connection>MySQL</connection>
+    <connection>mySQL</connection>
     <schema/>
     <seqname>SEQ_</seqname>
     <use_counter>Y</use_counter>
@@ -878,7 +837,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
+      <xloc>432</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
