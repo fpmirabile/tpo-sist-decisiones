@@ -619,11 +619,6 @@ docente, sale y tiempo.</note>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>join_sala</from>
-      <to>Dividir Season/Temporada</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Dividir Season/Temporada</from>
       <to>ordenar_por_tiempo</to>
       <enabled>Y</enabled>
@@ -636,6 +631,16 @@ docente, sale y tiempo.</note>
     <hop>
       <from>Ordenar por room</from>
       <to>join_sala</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>join_sala</from>
+      <to>Agrego sala dummy\</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Agrego sala dummy\</from>
+      <to>Dividir Season/Temporada</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -769,6 +774,66 @@ docente, sale y tiempo.</note>
     </GUI>
   </step>
   <step>
+    <name>Dividir Season/Temporada</name>
+    <type>FieldSplitter</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <splitfield>temporada</splitfield>
+    <delimiter> </delimiter>
+    <enclosure/>
+    <fields>
+      <field>
+        <name>temporada</name>
+        <id/>
+        <idrem>N</idrem>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <currency/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+      </field>
+      <field>
+        <name>ano</name>
+        <id/>
+        <idrem>N</idrem>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <currency/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>864</xloc>
+      <yloc>64</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Insert / update</name>
     <type>InsertUpdate</type>
     <description/>
@@ -865,8 +930,8 @@ docente, sale y tiempo.</note>
     </GUI>
   </step>
   <step>
-    <name>Dividir Season/Temporada</name>
-    <type>FieldSplitter</type>
+    <name>Ordenar por apellido</name>
+    <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -875,39 +940,21 @@ docente, sale y tiempo.</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <splitfield>temporada</splitfield>
-    <delimiter> </delimiter>
-    <enclosure/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>temporada</name>
-        <id/>
-        <idrem>N</idrem>
-        <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
-        <currency/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
-        <trimtype>none</trimtype>
-      </field>
-      <field>
-        <name>ano</name>
-        <id/>
-        <idrem>N</idrem>
-        <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
-        <currency/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
-        <trimtype>none</trimtype>
+        <name>apellido</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
       </field>
     </fields>
     <attributes/>
@@ -919,8 +966,50 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>208</yloc>
+      <xloc>544</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Ordenar por room</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>room</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>800</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1368,8 +1457,8 @@ if (Days == "R") {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1216</xloc>
-      <yloc>128</yloc>
+      <xloc>1232</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1856,6 +1945,42 @@ order by room asc
     </GUI>
   </step>
   <step>
+    <name>join tiempo</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>ordenar_por_tiempo</step1>
+    <step2>ordenar_por_tiempo_2</step2>
+    <keys_1>
+      <key>ano</key>
+      <key>temporada</key>
+    </keys_1>
+    <keys_2>
+      <key>ano</key>
+      <key>temporada</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1040</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>join_curso</name>
     <type>MergeJoin</type>
     <description/>
@@ -1920,44 +2045,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>join tiempo</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <join_type>INNER</join_type>
-    <step1>ordenar_por_tiempo</step1>
-    <step2>ordenar_por_tiempo_2</step2>
-    <keys_1>
-      <key>ano</key>
-      <key>temporada</key>
-    </keys_1>
-    <keys_2>
-      <key>ano</key>
-      <key>temporada</key>
-    </keys_2>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1040</xloc>
-      <yloc>192</yloc>
+      <xloc>592</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1972,7 +2061,7 @@ order by room asc
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <join_type>INNER</join_type>
+    <join_type>LEFT OUTER</join_type>
     <step1>ordenar_por_room</step1>
     <step2>Ordenar por room</step2>
     <keys_1>
@@ -2124,8 +2213,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>128</yloc>
+      <xloc>992</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2233,8 +2322,8 @@ order by room asc
     </GUI>
   </step>
   <step>
-    <name>Ordenar por apellido</name>
-    <type>SortRows</type>
+    <name>Agrego sala dummy\</name>
+    <type>IfNull</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -2243,21 +2332,19 @@ order by room asc
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
     <fields>
       <field>
-        <name>apellido</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
+        <name>id_sala</name>
+        <value>1</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
       </field>
     </fields>
     <attributes/>
@@ -2269,50 +2356,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Ordenar por room</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>room</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>800</xloc>
-      <yloc>304</yloc>
+      <xloc>912</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
