@@ -439,8 +439,8 @@
       <note>Extrae, transforma y carga los datos de Course Offerings y de Room Types y los carga en en  la dimension de salas</note>
       <xloc>64</xloc>
       <yloc>32</yloc>
-      <width>764</width>
-      <heigth>30</heigth>
+      <width>916</width>
+      <heigth>34</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>11</fontsize>
       <fontbold>N</fontbold>
@@ -464,8 +464,8 @@
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
+    <username>shared</username>
+    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -542,11 +542,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Join por Room</from>
-      <to>Cambiar Nombre</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Generar Sala Dummy</from>
       <to>Cambiar Nombre</to>
       <enabled>Y</enabled>
@@ -556,7 +551,61 @@
       <to>Upsert dim_salas</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Join por Room</from>
+      <to>Dummy a tipo de room</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Dummy a tipo de room</from>
+      <to>Cambiar Nombre</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
+  <step>
+    <name>Cambiar Nombre</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>ROOM</name>
+        <rename>nro_sala</rename>
+      </field>
+      <field>
+        <name>SEATS</name>
+        <rename>capacidad</rename>
+      </field>
+      <field>
+        <name>LOCATION</name>
+        <rename>ubicacion</rename>
+      </field>
+      <field>
+        <name>TYPE</name>
+        <rename>tipo</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>592</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>Entrada Excel</name>
     <type>ExcelInput</type>
@@ -779,8 +828,42 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
+      <xloc>608</xloc>
       <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Join por Room</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>LEFT OUTER</join_type>
+    <step1>Ordenar Access</step1>
+    <step2>Ordenar Excel</step2>
+    <keys_1>
+      <key>ROOM</key>
+    </keys_1>
+    <keys_2>
+      <key>ROOM</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -891,104 +974,6 @@
     </GUI>
   </step>
   <step>
-    <name>Join por Room</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <join_type>INNER</join_type>
-    <step1>Ordenar Access</step1>
-    <step2>Ordenar Excel</step2>
-    <keys_1>
-      <key>ROOM</key>
-    </keys_1>
-    <keys_2>
-      <key>ROOM</key>
-    </keys_2>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>352</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Upsert dim_salas</name>
-    <type>InsertUpdate</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>mySQL</connection>
-    <commit>1000</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema>commodore64</schema>
-      <table>dim_salas</table>
-      <key>
-        <name>nro_sala</name>
-        <field>nro_sala</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>ubicacion</name>
-        <field>ubicacion</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>nro_sala</name>
-        <rename>nro_sala</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>capacidad</name>
-        <rename>capacidad</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>ubicacion</name>
-        <rename>ubicacion</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>tipo</name>
-        <rename>tipo</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>656</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Ordenar Access</name>
     <type>SortRows</type>
     <description/>
@@ -1073,8 +1058,8 @@
     </GUI>
   </step>
   <step>
-    <name>Cambiar Nombre</name>
-    <type>SelectValues</type>
+    <name>Upsert dim_salas</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1083,24 +1068,84 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <connection>mySQL</connection>
+    <commit>1000</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>commodore64</schema>
+      <table>dim_salas</table>
+      <key>
+        <name>nro_sala</name>
+        <field>nro_sala</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>ubicacion</name>
+        <field>ubicacion</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>nro_sala</name>
+        <rename>nro_sala</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>capacidad</name>
+        <rename>capacidad</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ubicacion</name>
+        <rename>ubicacion</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>tipo</name>
+        <rename>tipo</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>736</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Dummy a tipo de room</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
     <fields>
       <field>
-        <name>ROOM</name>
-        <rename>nro_sala</rename>
-      </field>
-      <field>
-        <name>SEATS</name>
-        <rename>capacidad</rename>
-      </field>
-      <field>
-        <name>LOCATION</name>
-        <rename>ubicacion</rename>
-      </field>
-      <field>
         <name>TYPE</name>
-        <rename>tipo</rename>
+        <value>Dummy</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
       </field>
-      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1111,8 +1156,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
-      <yloc>240</yloc>
+      <xloc>432</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
