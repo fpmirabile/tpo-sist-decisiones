@@ -463,21 +463,6 @@
 										},
 										{
 											"_type": "ERDColumnView",
-											"_id": "AAAAAAF8H/AKOn4G38c=",
-											"_parent": {
-												"$ref": "AAAAAAF7vYaNeD3xmsI="
-											},
-											"model": {
-												"$ref": "AAAAAAF8H/AKKX4DUKo="
-											},
-											"font": "Arial;13;0",
-											"left": 821,
-											"top": 368,
-											"width": 150,
-											"height": 13
-										},
-										{
-											"_type": "ERDColumnView",
 											"_id": "AAAAAAF8ICDR5X4Q4vU=",
 											"_parent": {
 												"$ref": "AAAAAAF7vYaNeD3xmsI="
@@ -487,7 +472,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 821,
-											"top": 383,
+											"top": 368,
 											"width": 150,
 											"height": 13
 										},
@@ -502,7 +487,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 821,
-											"top": 398,
+											"top": 383,
 											"width": 150,
 											"height": 13
 										},
@@ -517,7 +502,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 821,
-											"top": 413,
+											"top": 398,
 											"width": 150,
 											"height": 13
 										},
@@ -529,6 +514,21 @@
 											},
 											"model": {
 												"$ref": "AAAAAAF8KWYIuVwC+Ps="
+											},
+											"font": "Arial;13;0",
+											"left": 821,
+											"top": 413,
+											"width": 150,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF9Yc7DwIXeVZs=",
+											"_parent": {
+												"$ref": "AAAAAAF7vYaNeD3xmsI="
+											},
+											"model": {
+												"$ref": "AAAAAAF9Yc7DhoXbfZU="
 											},
 											"font": "Arial;13;0",
 											"left": 821,
@@ -648,20 +648,35 @@
 											"top": 561,
 											"width": 126,
 											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF9Yc32woXWCFI=",
+											"_parent": {
+												"$ref": "AAAAAAF7vYd5lD4B6N0="
+											},
+											"model": {
+												"$ref": "AAAAAAF9Yc32lIXTTtM="
+											},
+											"font": "Arial;13;0",
+											"left": 1013,
+											"top": 576,
+											"width": 126,
+											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 1008,
 									"top": 511,
 									"width": 136,
-									"height": 68
+									"height": 83
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 1008,
 							"top": 488,
 							"width": 136,
-							"height": 96,
+							"height": 106,
 							"nameLabel": {
 								"$ref": "AAAAAAF7vYd5lD4ALiw="
 							},
@@ -956,13 +971,28 @@
 											"top": 370,
 											"width": 150,
 											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF9Yc08AIXPVCE=",
+											"_parent": {
+												"$ref": "AAAAAAF7/qxo/EgQAmM="
+											},
+											"model": {
+												"$ref": "AAAAAAF9Yc0714XMvx0="
+											},
+											"font": "Arial;13;0",
+											"left": 485,
+											"top": 385,
+											"width": 150,
+											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 480,
 									"top": 335,
 									"width": 160,
-									"height": 53
+									"height": 68
 								}
 							],
 							"font": "Arial;13;0",
@@ -1868,7 +1898,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF7vYaNdz3tbiY="
 							},
-							"name": "id_curso_real",
+							"name": "id_curso",
 							"length": 0,
 							"foreignKey": true
 						},
@@ -1889,16 +1919,6 @@
 								"$ref": "AAAAAAF7vYaNdz3tbiY="
 							},
 							"name": "id_tiempo",
-							"length": 0,
-							"foreignKey": true
-						},
-						{
-							"_type": "ERDColumn",
-							"_id": "AAAAAAF8H/AKKX4DUKo=",
-							"_parent": {
-								"$ref": "AAAAAAF7vYaNdz3tbiY="
-							},
-							"name": "id_curso",
 							"length": 0,
 							"foreignKey": true
 						},
@@ -1937,6 +1957,15 @@
 								"$ref": "AAAAAAF7vYaNdz3tbiY="
 							},
 							"name": "dias",
+							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF9Yc7DhoXbfZU=",
+							"_parent": {
+								"$ref": "AAAAAAF7vYaNdz3tbiY="
+							},
+							"name": "duracion",
 							"length": 0
 						}
 					]
@@ -2069,6 +2098,15 @@
 								"$ref": "AAAAAAF7vYd5kz3961U="
 							},
 							"name": "nro_sala",
+							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF9Yc32lIXTTtM=",
+							"_parent": {
+								"$ref": "AAAAAAF7vYd5kz3961U="
+							},
+							"name": "tipo",
 							"length": 0
 						}
 					]
@@ -2333,6 +2371,15 @@
 								"$ref": "AAAAAAF7/qxo+kgMxuY="
 							},
 							"name": "codigo",
+							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF9Yc0714XMvx0=",
+							"_parent": {
+								"$ref": "AAAAAAF7/qxo+kgMxuY="
+							},
+							"name": "temporada",
 							"length": 0
 						}
 					]
