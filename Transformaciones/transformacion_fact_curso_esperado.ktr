@@ -459,12 +459,12 @@
   </notepads>
   <connection>
     <name>MySQL</name>
-    <server>192.168.0.14</server>
+    <server>127.0.0.1</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>ivo</username>
+    <username>root</username>
     <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
     <servername/>
     <data_tablespace/>
@@ -522,63 +522,58 @@
   </connection>
   <order>
     <hop>
-      <from>Ordenar filas</from>
-      <to>salida fact_curso_esperado</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>CSV courseCapacity</from>
-      <to>campos nulos</to>
+      <to>Elimino Campos Nulos</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>dim_tiempo</from>
-      <to>Búsqueda en flujo de tiempo</to>
+      <to>Busco en dim_tiempo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>campos nulos</from>
-      <to>partir temporada</to>
+      <from>Elimino Campos Nulos</from>
+      <to>Separo Temporada</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>partir temporada</from>
-      <to>Selecciona/Renombra valores</to>
+      <from>Separo Temporada</from>
+      <to>Cambio Nombres</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Cambio Nombres</from>
+      <to>Busco en dim_tiempo</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Busco en dim_tiempo</from>
+      <to>Busco en dim curso</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Busco en dim curso</from>
+      <to>Cambio Nombres Final</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>dim_curso</from>
-      <to>Búsqueda en flujo de curso</to>
+      <to>Separo Temporada 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Selecciona/Renombra valores</from>
-      <to>Búsqueda en flujo de tiempo</to>
+      <from>Separo Temporada 2</from>
+      <to>Busco en dim curso</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Búsqueda en flujo de tiempo</from>
-      <to>Búsqueda en flujo de curso</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Búsqueda en flujo de curso</from>
-      <to>Selecciona/Renombra valores curso esperado</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Selecciona/Renombra valores curso esperado</from>
-      <to>id_curso_esperado</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>id_curso_esperado</from>
-      <to>Ordenar filas</to>
+      <from>Cambio Nombres Final</from>
+      <to>Upsert fact_curso_esperado</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Búsqueda en flujo de curso</name>
+    <name>Busco en dim curso</name>
     <type>StreamLookup</type>
     <description/>
     <distribute>N</distribute>
@@ -588,7 +583,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>dim_curso</from>
+    <from>Separo Temporada 2</from>
     <input_sorted>N</input_sorted>
     <preserve_memory>Y</preserve_memory>
     <sorted_list>N</sorted_list>
@@ -597,6 +592,14 @@
       <key>
         <name>codigo_curso</name>
         <field>codigo_curso</field>
+      </key>
+      <key>
+        <name>ano</name>
+        <field>ano</field>
+      </key>
+      <key>
+        <name>temporada</name>
+        <field>temporada</field>
       </key>
       <value>
         <name>id_curso</name>
@@ -614,13 +617,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1008</xloc>
+      <xloc>896</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Búsqueda en flujo de tiempo</name>
+    <name>Busco en dim_tiempo</name>
     <type>StreamLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -660,7 +663,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>800</xloc>
+      <xloc>688</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
@@ -745,55 +748,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>64</xloc>
+      <xloc>80</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar filas</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>id_curso_esperado</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1008</xloc>
-      <yloc>432</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Selecciona/Renombra valores</name>
+    <name>Cambio Nombres</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -818,9 +779,11 @@
       </field>
       <field>
         <name>ano</name>
+        <rename/>
       </field>
       <field>
         <name>temporada</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -850,13 +813,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
+      <xloc>528</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Selecciona/Renombra valores curso esperado</name>
+    <name>Cambio Nombres Final</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -890,13 +853,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1232</xloc>
+      <xloc>1120</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>campos nulos</name>
+    <name>Elimino Campos Nulos</name>
     <type>IfNull</type>
     <description/>
     <distribute>Y</distribute>
@@ -948,7 +911,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
+      <xloc>224</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
@@ -957,7 +920,7 @@
     <name>dim_curso</name>
     <type>TableInput</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -969,6 +932,7 @@
   id_curso
 , titulo
 , codigo_curso
+, temporada
 FROM commodore64.dim_curso
 </sql>
     <limit>0</limit>
@@ -987,8 +951,8 @@ FROM commodore64.dim_curso
         <origin>dim_curso</origin>
         <comments>id_curso</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -997,7 +961,7 @@ FROM commodore64.dim_curso
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Buenos_Aires</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1010,8 +974,8 @@ FROM commodore64.dim_curso
         <origin>dim_curso</origin>
         <comments>titulo</comments>
         <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -1020,7 +984,7 @@ FROM commodore64.dim_curso
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Buenos_Aires</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1033,8 +997,8 @@ FROM commodore64.dim_curso
         <origin>dim_curso</origin>
         <comments>codigo_curso</comments>
         <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -1043,7 +1007,7 @@ FROM commodore64.dim_curso
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Buenos_Aires</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1057,7 +1021,7 @@ FROM commodore64.dim_curso
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1008</xloc>
+      <xloc>896</xloc>
       <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1166,48 +1130,13 @@ FROM commodore64.dim_tiempo
       </output>
     </remotesteps>
     <GUI>
-      <xloc>800</xloc>
-      <yloc>64</yloc>
+      <xloc>688</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>id_curso_esperado</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <valuename>id_curso_esperado</valuename>
-    <use_database>N</use_database>
-    <connection>MySQL</connection>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>1</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1232</xloc>
-      <yloc>432</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>partir temporada</name>
+    <name>Separo Temporada</name>
     <type>FieldSplitter</type>
     <description/>
     <distribute>Y</distribute>
@@ -1267,34 +1196,50 @@ FROM commodore64.dim_tiempo
     </GUI>
   </step>
   <step>
-    <name>salida fact_curso_esperado</name>
-    <type>TableOutput</type>
+    <name>Separo Temporada 2</name>
+    <type>FieldSplitter</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>MySQL</connection>
-    <schema>commodore64</schema>
-    <table>fact_curso_esperado</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
+    <splitfield>temporada</splitfield>
+    <delimiter> </delimiter>
+    <enclosure/>
     <fields>
+      <field>
+        <name>temporada</name>
+        <id/>
+        <idrem>N</idrem>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <currency/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+      </field>
+      <field>
+        <name>ano</name>
+        <id/>
+        <idrem>N</idrem>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <currency/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1305,8 +1250,67 @@ FROM commodore64.dim_tiempo
       </output>
     </remotesteps>
     <GUI>
-      <xloc>800</xloc>
-      <yloc>432</yloc>
+      <xloc>896</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Upsert fact_curso_esperado</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>MySQL</connection>
+    <commit>1000</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>commodore64</schema>
+      <table>fact_curso_esperado</table>
+      <key>
+        <name>id_tiempo</name>
+        <field>id_tiempo</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>id_curso</name>
+        <field>id_curso</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>capacidad_maxima</name>
+        <rename>capacidad_maxima</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>id_tiempo</name>
+        <rename>id_tiempo</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>id_curso</name>
+        <rename>id_curso</rename>
+        <update>N</update>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1280</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

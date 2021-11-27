@@ -440,7 +440,7 @@
 hay que llenar las dimensiones de curso, 
 docente, sale y tiempo.</note>
       <xloc>32</xloc>
-      <yloc>16</yloc>
+      <yloc>0</yloc>
       <width>280</width>
       <heigth>70</heigth>
       <fontname>Segoe UI</fontname>
@@ -466,8 +466,8 @@ docente, sale y tiempo.</note>
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>shared</username>
-    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -524,126 +524,166 @@ docente, sale y tiempo.</note>
   </connection>
   <order>
     <hop>
-      <from>join_curso</from>
-      <to>ordenar_por_instructor</to>
+      <from>Join Curso</from>
+      <to>Ordeno por Instructor</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ordenar_por_instructor</from>
+      <from>Ordeno por Instructor</from>
       <to>join_docente</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>join_docente</from>
-      <to>ordenar_por_room</to>
+      <to>Ordeno por Room</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ordenar_por_room</from>
-      <to>join_sala</to>
+      <from>Ordeno por Room</from>
+      <to>Join Sala</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>join tiempo</from>
-      <to>calcular_inscriptos</to>
+      <from>Join Tiempo</from>
+      <to>Calculo Inscriptos</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>calcular_inscriptos</from>
-      <to>Valor JavaScript modificado</to>
+      <from>Calculo Inscriptos</from>
+      <to>Calculo Modalidad</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Valor JavaScript modificado</from>
-      <to>Select values</to>
+      <from>Calculo Modalidad</from>
+      <to>Cambio Nombres</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input_curso</from>
-      <to>Trim_input_curso</to>
+      <to>Trim Codigo y Temporada</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Trim_input_curso</from>
-      <to>Sort rows</to>
+      <from>Trim Codigo y Temporada</from>
+      <to>Ordeno por Codigo y Temporada</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows</from>
-      <to>join_curso</to>
+      <from>Ordeno por Codigo y Temporada</from>
+      <to>Join Curso</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>trim_csv</from>
-      <to>Sort rows 2</to>
+      <from>Trim Course y Season</from>
+      <to>Ordeno por Course y Season</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 2</from>
-      <to>join_curso</to>
+      <from>Ordeno por Course y Season</from>
+      <to>Join Curso</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ordenar_por_tiempo</from>
-      <to>join tiempo</to>
+      <from>Ordeno por Tiempo</from>
+      <to>Join Tiempo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input dim_tiempo</from>
-      <to>ordenar_por_tiempo_2</to>
+      <to>Ordeno por Tiempo 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ordenar_por_tiempo_2</from>
-      <to>join tiempo</to>
+      <from>Ordeno por Tiempo 2</from>
+      <to>Join Tiempo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values</from>
-      <to>Insert / update</to>
+      <from>Cambio Nombres</from>
+      <to>Upsert fact curso real</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>CSV file input (TEMPORAL)</from>
-      <to>trim_csv</to>
+      <to>Trim Course y Season</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input_docente</from>
-      <to>Ordenar por apellido</to>
+      <to>Ordeno por Apellido</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar por apellido</from>
+      <from>Ordeno por Apellido</from>
       <to>join_docente</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Dividir Season/Temporada</from>
-      <to>ordenar_por_tiempo</to>
+      <from>Divido Temporada y Año</from>
+      <to>Ordeno por Tiempo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>input_sala</from>
-      <to>Ordenar por room</to>
+      <to>Ordeno Sala por Room</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar por room</from>
-      <to>join_sala</to>
+      <from>Ordeno Sala por Room</from>
+      <to>Join Sala</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>join_sala</from>
-      <to>Agrego sala dummy\</to>
+      <from>Join Sala</from>
+      <to>Agrego Sala Dummy</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Agrego sala dummy\</from>
-      <to>Dividir Season/Temporada</to>
+      <from>Agrego Sala Dummy</from>
+      <to>Divido Temporada y Año</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <step>
+    <name>Agrego Sala Dummy</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>id_sala</name>
+        <value>1</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>912</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>CSV file input (TEMPORAL)</name>
     <type>CsvInput</type>
@@ -768,13 +808,13 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>112</xloc>
-      <yloc>400</yloc>
+      <xloc>80</xloc>
+      <yloc>464</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Dividir Season/Temporada</name>
+    <name>Divido Temporada y Año</name>
     <type>FieldSplitter</type>
     <description/>
     <distribute>Y</distribute>
@@ -828,13 +868,13 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>64</yloc>
+      <xloc>1056</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insert / update</name>
+    <name>Upsert fact curso real</name>
     <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
@@ -924,13 +964,13 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1424</xloc>
-      <yloc>192</yloc>
+      <xloc>1360</xloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar por apellido</name>
+    <name>Ordeno por Apellido</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -966,13 +1006,13 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>288</yloc>
+      <xloc>624</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar por room</name>
+    <name>Ordeno Sala por Room</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1008,13 +1048,13 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>800</xloc>
-      <yloc>304</yloc>
+      <xloc>816</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Select values</name>
+    <name>Cambio Nombres</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1027,12 +1067,15 @@ docente, sale y tiempo.</note>
     <fields>
       <field>
         <name>id_curso</name>
+        <rename/>
       </field>
       <field>
         <name>codigo_curso</name>
+        <rename/>
       </field>
       <field>
         <name>Course</name>
+        <rename/>
       </field>
       <field>
         <name>Days</name>
@@ -1040,48 +1083,63 @@ docente, sale y tiempo.</note>
       </field>
       <field>
         <name>Instructor</name>
+        <rename/>
       </field>
       <field>
         <name>Room</name>
+        <rename/>
       </field>
       <field>
         <name>Male Enrolled</name>
+        <rename/>
       </field>
       <field>
         <name>Female Enrolled</name>
+        <rename/>
       </field>
       <field>
         <name>temporada</name>
+        <rename/>
       </field>
       <field>
         <name>ano</name>
+        <rename/>
       </field>
       <field>
         <name>id_docente</name>
+        <rename/>
       </field>
       <field>
         <name>apellido</name>
+        <rename/>
       </field>
       <field>
         <name>id_sala</name>
+        <rename/>
       </field>
       <field>
         <name>room_1</name>
+        <rename/>
       </field>
       <field>
         <name>id_tiempo</name>
+        <rename/>
       </field>
       <field>
         <name>ano_1</name>
+        <rename/>
       </field>
       <field>
         <name>temporada_1</name>
+        <rename/>
       </field>
       <field>
         <name>inscriptos</name>
+        <rename/>
       </field>
       <field>
         <name>modalidad</name>
+        <rename/>
       </field>
       <field>
         <name>Hours</name>
@@ -1253,13 +1311,13 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1296</xloc>
-      <yloc>192</yloc>
+      <xloc>1360</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort rows</name>
+    <name>Ordeno por Codigo y Temporada</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1303,13 +1361,13 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
-      <yloc>208</yloc>
+      <xloc>256</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort rows 2</name>
+    <name>Ordeno por Course y Season</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1353,13 +1411,13 @@ docente, sale y tiempo.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
-      <yloc>304</yloc>
+      <xloc>384</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Trim_input_curso</name>
+    <name>Trim Codigo y Temporada</name>
     <type>StringOperations</type>
     <description/>
     <distribute>Y</distribute>
@@ -1407,12 +1465,12 @@ docente, sale y tiempo.</note>
     </remotesteps>
     <GUI>
       <xloc>80</xloc>
-      <yloc>208</yloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Valor JavaScript modificado</name>
+    <name>Calculo Modalidad</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -1457,13 +1515,13 @@ if (Days == "R") {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1232</xloc>
-      <yloc>288</yloc>
+      <xloc>1360</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>calcular_inscriptos</name>
+    <name>Calculo Inscriptos</name>
     <type>Calculator</type>
     <description/>
     <distribute>Y</distribute>
@@ -1498,8 +1556,8 @@ if (Days == "R") {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1168</xloc>
-      <yloc>192</yloc>
+      <xloc>1360</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1608,8 +1666,8 @@ order by ano, temporada asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>336</yloc>
+      <xloc>1360</xloc>
+      <yloc>0</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1767,8 +1825,8 @@ FROM commodore64.dim_curso
       </output>
     </remotesteps>
     <GUI>
-      <xloc>64</xloc>
-      <yloc>112</yloc>
+      <xloc>80</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1853,8 +1911,8 @@ order by apellido asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
-      <yloc>304</yloc>
+      <xloc>624</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1939,13 +1997,13 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
-      <yloc>352</yloc>
+      <xloc>816</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>join tiempo</name>
+    <name>Join Tiempo</name>
     <type>MergeJoin</type>
     <description/>
     <distribute>Y</distribute>
@@ -1956,8 +2014,8 @@ order by room asc
       <schema_name/>
     </partitioning>
     <join_type>INNER</join_type>
-    <step1>ordenar_por_tiempo</step1>
-    <step2>ordenar_por_tiempo_2</step2>
+    <step1>Ordeno por Tiempo</step1>
+    <step2>Ordeno por Tiempo 2</step2>
     <keys_1>
       <key>ano</key>
       <key>temporada</key>
@@ -1975,13 +2033,13 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1040</xloc>
+      <xloc>1360</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>join_curso</name>
+    <name>Join Curso</name>
     <type>MergeJoin</type>
     <description/>
     <distribute>Y</distribute>
@@ -1992,8 +2050,8 @@ order by room asc
       <schema_name/>
     </partitioning>
     <join_type>INNER</join_type>
-    <step1>Sort rows</step1>
-    <step2>Sort rows 2</step2>
+    <step1>Ordeno por Codigo y Temporada</step1>
+    <step2>Ordeno por Course y Season</step2>
     <keys_1>
       <key>codigo_curso</key>
       <key>temporada</key>
@@ -2011,7 +2069,7 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
+      <xloc>384</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2028,8 +2086,8 @@ order by room asc
       <schema_name/>
     </partitioning>
     <join_type>INNER</join_type>
-    <step1>ordenar_por_instructor</step1>
-    <step2>Ordenar por apellido</step2>
+    <step1>Ordeno por Instructor</step1>
+    <step2>Ordeno por Apellido</step2>
     <keys_1>
       <key>Instructor</key>
     </keys_1>
@@ -2045,13 +2103,13 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>176</yloc>
+      <xloc>624</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>join_sala</name>
+    <name>Join Sala</name>
     <type>MergeJoin</type>
     <description/>
     <distribute>Y</distribute>
@@ -2062,8 +2120,8 @@ order by room asc
       <schema_name/>
     </partitioning>
     <join_type>LEFT OUTER</join_type>
-    <step1>ordenar_por_room</step1>
-    <step2>Ordenar por room</step2>
+    <step1>Ordeno por Room</step1>
+    <step2>Ordeno Sala por Room</step2>
     <keys_1>
       <key>Room</key>
     </keys_1>
@@ -2079,13 +2137,13 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>800</xloc>
+      <xloc>816</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>ordenar_por_instructor</name>
+    <name>Ordeno por Instructor</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -2121,13 +2179,13 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
+      <xloc>496</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>ordenar_por_room</name>
+    <name>Ordeno por Room</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -2163,13 +2221,13 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
+      <xloc>720</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>ordenar_por_tiempo</name>
+    <name>Ordeno por Tiempo</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -2213,13 +2271,13 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>80</yloc>
+      <xloc>1200</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>ordenar_por_tiempo_2</name>
+    <name>Ordeno por Tiempo 2</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -2263,13 +2321,13 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1056</xloc>
-      <yloc>304</yloc>
+      <xloc>1360</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>trim_csv</name>
+    <name>Trim Course y Season</name>
     <type>StringOperations</type>
     <description/>
     <distribute>Y</distribute>
@@ -2316,48 +2374,8 @@ order by room asc
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
+      <xloc>80</xloc>
       <yloc>336</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agrego sala dummy\</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <replaceAllByValue/>
-    <replaceAllMask/>
-    <selectFields>Y</selectFields>
-    <selectValuesType>N</selectValuesType>
-    <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>id_sala</name>
-        <value>1</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>912</xloc>
-      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

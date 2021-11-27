@@ -438,8 +438,8 @@
     <notepad>
       <note>Extraccion, Transformacion y Carga de dimension tiempo
 </note>
-      <xloc>144</xloc>
-      <yloc>144</yloc>
+      <xloc>48</xloc>
+      <yloc>32</yloc>
       <width>467</width>
       <heigth>53</heigth>
       <fontname>Ubuntu</fontname>
@@ -465,8 +465,8 @@
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>shared</username>
-    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -523,33 +523,28 @@
   </connection>
   <order>
     <hop>
-      <from>id_tiempo</from>
-      <to>Partir campos</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Partir campos</from>
-      <to>Selecciona/Renombra valores</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Selecciona/Renombra valores</from>
-      <to>Salida Tabla</to>
+      <from>Separo Temporada y Año</from>
+      <to>Cambio Nombres</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Course Capacity CSV</from>
-      <to>Ordenar filas por season</to>
+      <to>Ordeno por Season</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar filas por season</from>
+      <from>Ordeno por Season</from>
       <to>Filas Unicas</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Filas Unicas</from>
-      <to>id_tiempo</to>
+      <to>Separo Temporada y Año</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Cambio Nombres</from>
+      <to>Upsert dim_tiempo</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -633,8 +628,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>288</yloc>
+      <xloc>64</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -668,13 +663,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>368</xloc>
-      <yloc>288</yloc>
+      <xloc>352</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar filas por season</name>
+    <name>Ordeno por Season</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -710,13 +705,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>240</xloc>
-      <yloc>288</yloc>
+      <xloc>224</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Partir campos</name>
+    <name>Separo Temporada y Año</name>
     <type>FieldSplitter</type>
     <description/>
     <distribute>Y</distribute>
@@ -770,57 +765,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>288</yloc>
+      <xloc>496</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Salida Tabla</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>mySQL</connection>
-    <schema>commodore64</schema>
-    <table>dim_tiempo</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>960</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Selecciona/Renombra valores</name>
+    <name>Cambio Nombres</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -832,22 +783,24 @@
     </partitioning>
     <fields>
       <field>
-        <name>id_tiempo</name>
-      </field>
-      <field>
         <name>temporada</name>
+        <rename/>
       </field>
       <field>
         <name>ano</name>
+        <rename/>
       </field>
       <field>
         <name>ï»¿Course</name>
+        <rename/>
       </field>
       <field>
         <name>Course Title</name>
+        <rename/>
       </field>
       <field>
         <name>Size</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
@@ -859,23 +812,6 @@
       <remove>
         <name>Size</name>
       </remove>
-      <meta>
-        <name>id_tiempo</name>
-        <rename>id_tiempo</rename>
-        <type>Integer</type>
-        <length>1</length>
-        <precision>0</precision>
-        <conversion_mask>#</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
       <meta>
         <name>ano</name>
         <rename>ano</rename>
@@ -920,14 +856,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
-      <yloc>288</yloc>
+      <xloc>640</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>id_tiempo</name>
-    <type>Sequence</type>
+    <name>Upsert dim_tiempo</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -936,16 +872,35 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <valuename>id_tiempo</valuename>
-    <use_database>N</use_database>
     <connection>mySQL</connection>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>1</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
+    <commit>1000</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>commodore64</schema>
+      <table>dim_tiempo</table>
+      <key>
+        <name>temporada</name>
+        <field>temporada</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>ano</name>
+        <field>ano</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>temporada</name>
+        <rename>temporada</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>ano</name>
+        <rename>ano</rename>
+        <update>N</update>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -955,8 +910,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>288</yloc>
+      <xloc>784</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

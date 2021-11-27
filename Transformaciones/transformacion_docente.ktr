@@ -459,12 +459,12 @@
   </notepads>
   <connection>
     <name>mySQL</name>
-    <server>192.168.0.14</server>
+    <server>127.0.0.1</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>ivo</username>
+    <username>root</username>
     <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
     <servername/>
     <data_tablespace/>
@@ -523,17 +523,17 @@
   <order>
     <hop>
       <from>Archivo docentes</from>
-      <to>Selecciona/Renombra valores</to>
+      <to>Cambio Nombres</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Selecciona/Renombra valores</from>
+      <from>Cambio Nombres</from>
       <to>Ordenar filas</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Ordenar filas</from>
-      <to>Salida DIM_DOCENTE</to>
+      <to>Upsert dim_docente</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -757,6 +757,99 @@
     </GUI>
   </step>
   <step>
+    <name>Upsert dim_docente</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>mySQL</connection>
+    <commit>1000</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>commodore64</schema>
+      <table>dim_docente</table>
+      <key>
+        <name>id_docente</name>
+        <field>id_docente</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>id_docente</name>
+        <rename>id_docente</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>apellido</name>
+        <rename>apellido</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>direccion</name>
+        <rename>direccion</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ciudad</name>
+        <rename>ciudad</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>estado</name>
+        <rename>estado</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>fecha_contratacion</name>
+        <rename>fecha_contratacion</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>cant_familiares</name>
+        <rename>cant_familiares</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>fecha_nacimiento</name>
+        <rename>fecha_nacimiento</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>cant_hijos</name>
+        <rename>cant_hijos</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>comision</name>
+        <rename>comision</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>comision_rate</name>
+        <rename>comision_rate</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Ordenar filas</name>
     <type>SortRows</type>
     <description/>
@@ -793,57 +886,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
+      <xloc>416</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Salida DIM_DOCENTE</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>mySQL</connection>
-    <schema>commodore64</schema>
-    <table>dim_docente</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>752</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Selecciona/Renombra valores</name>
+    <name>Cambio Nombres</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -876,6 +925,7 @@
       </field>
       <field>
         <name>ZipCode</name>
+        <rename/>
       </field>
       <field>
         <name>Hiring_date</name>
@@ -915,7 +965,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>352</xloc>
+      <xloc>288</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>

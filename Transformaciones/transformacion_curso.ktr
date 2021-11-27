@@ -437,8 +437,8 @@
   <notepads>
     <notepad>
       <note>Extrae, transforma y carga los datos de CurseCapacity en  la dimension de curso</note>
-      <xloc>181</xloc>
-      <yloc>44</yloc>
+      <xloc>48</xloc>
+      <yloc>32</yloc>
       <width>656</width>
       <heigth>31</heigth>
       <fontname>Ubuntu</fontname>
@@ -464,8 +464,8 @@
     <access>Native</access>
     <database>commodore64</database>
     <port>3306</port>
-    <username>shared</username>
-    <password>Encrypted 2be98afc86aa7f2e48d1cbc73d687f68b</password>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2a5af14a77e8fc0fc8e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -522,28 +522,18 @@
   </connection>
   <order>
     <hop>
-      <from>dim_curso</from>
-      <to>id_curso</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>id_curso</from>
-      <to>Ordenar filas</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Ordenar filas</from>
-      <to>Salida Tabla</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>CSV file input 2</from>
-      <to>Ordenar course</to>
+      <to>Ordenar CSV</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar course</from>
-      <to>dim_curso</to>
+      <from>Ordenar CSV</from>
+      <to>Cambio Nombres</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Cambio Nombres</from>
+      <to>Upsert dim_curso</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -633,7 +623,72 @@
     </GUI>
   </step>
   <step>
-    <name>Ordenar course</name>
+    <name>Upsert dim_curso</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>mySQL</connection>
+    <commit>1000</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>commodore64</schema>
+      <table>dim_curso</table>
+      <key>
+        <name>codigo_curso</name>
+        <field>codigo_curso</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>titulo</name>
+        <field>titulo</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>temporada</name>
+        <field>temporada</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>codigo_curso</name>
+        <rename>codigo_curso</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>titulo</name>
+        <rename>titulo</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>temporada</name>
+        <rename>temporada</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Ordenar CSV</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -675,93 +730,7 @@
     </GUI>
   </step>
   <step>
-    <name>Ordenar filas</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>codigo_curso</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>528</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Salida Tabla</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>mySQL</connection>
-    <schema>commodore64</schema>
-    <table>dim_curso</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>640</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>dim_curso</name>
+    <name>Cambio Nombres</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -803,41 +772,6 @@
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>id_curso</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <valuename>id_curso</valuename>
-    <use_database>N</use_database>
-    <connection>mySQL</connection>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>1</start_at>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>432</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
